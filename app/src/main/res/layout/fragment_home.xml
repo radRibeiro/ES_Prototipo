@@ -1,0 +1,96 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="layout.HomeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:id="@+id/M_recording"
+                android:background="#87B636"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:adjustViewBounds="false"
+                android:text="Recording"
+                android:textColor="#ffffff"
+
+                android:drawablePadding="16dp"
+                android:minHeight="30dp"
+                android:padding="40dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:id="@+id/M_history"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:background="#9AC63D"
+                android:adjustViewBounds="false"
+                android:text="HISTORY"
+                android:textColor="#ffffff"
+
+                android:drawablePadding="16dp"
+                android:padding="40dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:id="@+id/M_settings"
+                android:background="#B8D46E"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:adjustViewBounds="false"
+                android:text="SETTINGS"
+                android:textColor="#FFFFFF"
+
+                android:drawablePadding="16dp"
+                android:padding="40dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:id="@+id/M_about"
+                android:background="#69973F"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:adjustViewBounds="false"
+                android:text="ABOUT"
+                android:textColor="#FFFFFF"
+
+                android:padding="40dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
