@@ -3,11 +3,21 @@ package layout;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
+import java.util.Set;
+
+import Utils.Preferences;
+import control.ControlRegister;
 import fct.unl.pt.uberplus_p.R;
 
 /**
@@ -65,31 +75,131 @@ public class FragmentRegister extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        final View v =  inflater.inflate(R.layout.fragment_register, container, false);
+        final Preferences pref = new Preferences(getActivity());
+        final ControlRegister cr = new ControlRegister();
+        final EditText name = (EditText)v.findViewById(R.id.NameT);
+        final EditText surName = (EditText)v.findViewById(R.id.SurnameT);
+        final EditText age = (EditText)v.findViewById(R.id.AgeT);
+        final  EditText address = (EditText)v.findViewById(R.id.AddressT);
+        final  EditText email = (EditText)v.findViewById(R.id.emailT);
+        final EditText nib = (EditText)v.findViewById(R.id.NIBT);
+        final  EditText password = (EditText)v.findViewById(R.id.passwordT);
+        final  EditText passwordc = (EditText)v.findViewById(R.id.confPasswordT);
+        final EditText drivingL = (EditText)v.findViewById(R.id.drivingLicenseT);
+        final EditText licenseP = (EditText)v.findViewById(R.id.licensePlateT);
+        final RadioButton costumerR = (RadioButton)v.findViewById(R.id.costumerRadio);
+        final RadioButton driverR = (RadioButton)v.findViewById(R.id.driverRadio);
+        costumerR.setChecked(true);
+        costumerR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                driverR.setChecked(false);
+                drivingL.setVisibility(view.GONE);
+                licenseP.setVisibility(view.GONE);
+            }
+        });
+        driverR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                costumerR.setChecked(false);
+                drivingL.setVisibility(view.VISIBLE);
+                licenseP.setVisibility(view.VISIBLE);
+            }
+        });
+        Button confirmRegist = (Button) v.findViewById(R.id.submitT);
+        confirmRegist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    if(   name.getText().toString().equals("")
+                            ||surName.getText().toString().equals("")
+                            ||age.getText().toString().equals("")
+                            ||address.getText().toString().equals("")
+                            ||nib.getText().toString().equals("")
+                            ||email.getText().toString().equals("")
+                            ||password.getText().toString().equals("")
+                            ||passwordc.getText().toString().equals("")){
+                        Toast.makeText(getActivity(),"Not all fields are filled",Toast.LENGTH_SHORT).show();
+                    }
+                else if(cr.hasUser(email.getText().toString())){
+                        Toast.makeText(getActivity(),"Another user is already using the email",Toast.LENGTH_SHORT).show();
+                    }
+
+                else if(driverR.isChecked() &&drivingL.getText().toString().equals("")&&licenseP.getText().toString().equals("")){
+                        Toast.makeText(getActivity(),"Not all fields are filled",Toast.LENGTH_SHORT).show();
+                }
+                else if(!password.getText().toString().equals(passwordc.getText().toString())){
+                        Toast.makeText(getActivity(),"Passwords do not match",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        if(driverR.isChecked()){
+
+                         cr.addUser(name.getText().toString(),
+                                surName.getText().toString(),
+                                Integer.parseInt(age.getText().toString()),
+                                address.getText().toString(),
+                                email.getText().toString(),
+                                nib.getText().toString(),
+                                password.getText().toString(),
+                                drivingL.getText().toString(),
+                                licenseP.getText().toString(),
+                                "Driver");}
+                        else if(costumerR.isChecked()){
+                            cr.addUser(name.getText().toString(),
+                                    surName.getText().toString(),
+                                    Integer.parseInt(age.getText().toString()),
+                                    address.getText().toString(),
+                                    email.getText().toString(),
+                                    nib.getText().toString(),
+                                    password.getText().toString(),
+                                    "",
+                                    "",
+                                    "Costumer");
+                        }
+                        Toast.makeText(getActivity(),"New user added",Toast.LENGTH_SHORT).show();
+                        if(pref.getUserEmails()!=null||pref.getUserPasswords()!=null){
+                        Set<String> emails = pref.getUserEmails();
+                        Set<String>passwords = pref.getUserPasswords();
+                            emails.add(email.getText().toString());
+                            passwords.add(password.getText().toString());
+                            pref.storeUserEmails(emails);
+                            pref.storeUserPasswords(passwords);
+                        }else{
+                            Set<String> emails = new ArraySet<String>();
+                            Set<String> passwords = new ArraySet<String>();
+                            emails.add(email.getText().toString());
+                            passwords.add(password.getText().toString());
+                            pref.storeUserEmails(emails);
+                            pref.storeUserPasswords(passwords);
+                        }
+
+                        StartingFragment fragmentR = new StartingFragment();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.content_frame,fragmentR);
+                        fragmentTransaction.commit();
+
+                    }
+            }
+        });
+        return v;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void onPause(){
+        super.onPause();
     }
 
     /**

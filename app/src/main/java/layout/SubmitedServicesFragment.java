@@ -1,32 +1,27 @@
 package layout;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import java.util.Iterator;
-import java.util.Set;
-
-import Utils.Preferences;
 import fct.unl.pt.uberplus_p.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link LoginFragment.OnFragmentInteractionListener} interface
+ * {@link SubmitedServicesFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link LoginFragment#newInstance} factory method to
+ * Use the {@link SubmitedServicesFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ *
+ *Fragmentos para os drivers apenas onde se pode aceitar os serviços
  */
-public class LoginFragment extends Fragment {
+public class SubmitedServicesFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -38,7 +33,7 @@ public class LoginFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public LoginFragment() {
+    public SubmitedServicesFragment() {
         // Required empty public constructor
     }
 
@@ -48,11 +43,11 @@ public class LoginFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment LoginFragment.
+     * @return A new instance of fragment SubmitedServicesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
+    public static SubmitedServicesFragment newInstance(String param1, String param2) {
+        SubmitedServicesFragment fragment = new SubmitedServicesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -73,40 +68,7 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_login, container, false);
-       final EditText email = (EditText)v.findViewById(R.id.loginEmail);
-        final EditText password = (EditText)v.findViewById(R.id.loginPassword);
-       final Preferences pref = new Preferences(getActivity());
-        Button login = (Button)v.findViewById(R.id.buttonLogin);
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    checkCredentials(pref,email.getText().toString(),password.getText().toString());
-            }
-        });
-        return v;
-    }
-
-    private void checkCredentials(Preferences pref,String email,String pass) {
-        Set<String> emails = pref.getUserEmails();
-        Set<String>passwords = pref.getUserPasswords();
-        Iterator<String> it = emails.iterator();
-        Iterator<String> itP = passwords.iterator();
-        boolean result = false;
-        while(it.hasNext()&&itP.hasNext()){
-            String em = it.next();
-            String password = itP.next();
-            if(em.equals(email)&&password.equals(pass))
-                    result = true;
-        }
-        if(result){
-            Intent intent = new Intent(getActivity(),AccountActivity.class);
-            getActivity().startActivity(intent);
-        }
-        else{
-            Toast.makeText(getActivity(),"Wrong credentials",Toast.LENGTH_SHORT);
-        }
+        return inflater.inflate(R.layout.fragment_submited_services, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -116,7 +78,22 @@ public class LoginFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
 
     /**
      * This interface must be implemented by activities that contain this

@@ -1,44 +1,41 @@
 package layout;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import java.util.Iterator;
-import java.util.Set;
-
-import Utils.Preferences;
 import fct.unl.pt.uberplus_p.R;
 
+
 /**
- * A simple {@link Fragment} subclass.
+ * A fragment with a Google +1 button.
  * Activities that contain this fragment must implement the
- * {@link LoginFragment.OnFragmentInteractionListener} interface
+ * {@link RequestServiceFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link LoginFragment#newInstance} factory method to
+ * Use the {@link RequestServiceFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoginFragment extends Fragment {
+public class RequestServiceFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    // The request code must be 0 or greater.
+    private static final int PLUS_ONE_REQUEST_CODE = 0;
+    // The URL to +1.  Must be a valid URL.
+    private final String PLUS_ONE_URL = "http://developer.android.com";
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+
     private OnFragmentInteractionListener mListener;
 
-    public LoginFragment() {
+    public RequestServiceFragment() {
         // Required empty public constructor
     }
 
@@ -48,11 +45,11 @@ public class LoginFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment LoginFragment.
+     * @return A new instance of fragment RequestServiceFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
+    public static RequestServiceFragment newInstance(String param1, String param2) {
+        RequestServiceFragment fragment = new RequestServiceFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -73,40 +70,20 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_login, container, false);
-       final EditText email = (EditText)v.findViewById(R.id.loginEmail);
-        final EditText password = (EditText)v.findViewById(R.id.loginPassword);
-       final Preferences pref = new Preferences(getActivity());
-        Button login = (Button)v.findViewById(R.id.buttonLogin);
+        View view = inflater.inflate(R.layout.fragment_request, container, false);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    checkCredentials(pref,email.getText().toString(),password.getText().toString());
-            }
-        });
-        return v;
+        //Find the +1 button
+
+
+        return view;
     }
 
-    private void checkCredentials(Preferences pref,String email,String pass) {
-        Set<String> emails = pref.getUserEmails();
-        Set<String>passwords = pref.getUserPasswords();
-        Iterator<String> it = emails.iterator();
-        Iterator<String> itP = passwords.iterator();
-        boolean result = false;
-        while(it.hasNext()&&itP.hasNext()){
-            String em = it.next();
-            String password = itP.next();
-            if(em.equals(email)&&password.equals(pass))
-                    result = true;
-        }
-        if(result){
-            Intent intent = new Intent(getActivity(),AccountActivity.class);
-            getActivity().startActivity(intent);
-        }
-        else{
-            Toast.makeText(getActivity(),"Wrong credentials",Toast.LENGTH_SHORT);
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Refresh the state of the +1 button each time the activity receives focus.
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -116,7 +93,22 @@ public class LoginFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -132,4 +124,5 @@ public class LoginFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

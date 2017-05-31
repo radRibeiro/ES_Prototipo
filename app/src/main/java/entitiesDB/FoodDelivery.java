@@ -5,10 +5,10 @@ import java.util.Calendar;
 public class FoodDelivery extends ServiceRequest {
 	ArrayList<String> foodNames;
 	ArrayList<Integer>quantityNames;
-	public FoodDelivery(String serviceID,String originAddress, String destinationAddress, float payment, Calendar startTime,
+	public FoodDelivery(String serviceID,String originAddress, String destinationAddress, String status, float payment, Calendar startTime,
 			Calendar estimatedEndTime, String licensePlate,
 			ArrayList<String> foodNames,ArrayList<Integer>quantityNames) {
-		super(serviceID,originAddress, destinationAddress, payment, startTime, estimatedEndTime, licensePlate);
+		super(serviceID,originAddress, destinationAddress,status, payment, startTime, estimatedEndTime, licensePlate);
 		// TODO Auto-generated constructor stub
 		this.foodNames = new ArrayList<String>();
 		this.quantityNames = new ArrayList<Integer>();
