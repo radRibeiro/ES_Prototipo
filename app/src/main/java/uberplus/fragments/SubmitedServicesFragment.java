@@ -1,4 +1,4 @@
-package layout;
+package uberplus.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,32 +10,30 @@ import android.view.ViewGroup;
 
 import fct.unl.pt.uberplus_p.R;
 
-
 /**
- * A fragment with a Google +1 button.
+ * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link RequestServiceFragment.OnFragmentInteractionListener} interface
+ * {@link SubmitedServicesFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link RequestServiceFragment#newInstance} factory method to
+ * Use the {@link SubmitedServicesFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ *
+ *Fragmentos para os drivers apenas onde se pode aceitar os serviços
  */
-public class RequestServiceFragment extends Fragment {
+public class SubmitedServicesFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    // The request code must be 0 or greater.
-    private static final int PLUS_ONE_REQUEST_CODE = 0;
-    // The URL to +1.  Must be a valid URL.
-    private final String PLUS_ONE_URL = "http://developer.android.com";
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-
     private OnFragmentInteractionListener mListener;
 
-    public RequestServiceFragment() {
+    public SubmitedServicesFragment() {
         // Required empty public constructor
     }
 
@@ -45,11 +43,11 @@ public class RequestServiceFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment RequestServiceFragment.
+     * @return A new instance of fragment SubmitedServicesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RequestServiceFragment newInstance(String param1, String param2) {
-        RequestServiceFragment fragment = new RequestServiceFragment();
+    public static SubmitedServicesFragment newInstance(String param1, String param2) {
+        SubmitedServicesFragment fragment = new SubmitedServicesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -70,20 +68,7 @@ public class RequestServiceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_request, container, false);
-
-        //Find the +1 button
-
-
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // Refresh the state of the +1 button each time the activity receives focus.
-
+        return inflater.inflate(R.layout.fragment_submited_services, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -124,5 +109,4 @@ public class RequestServiceFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
 }

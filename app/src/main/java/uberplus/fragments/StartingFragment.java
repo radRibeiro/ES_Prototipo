@@ -1,27 +1,24 @@
-package layout;
+package uberplus.fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import fct.unl.pt.uberplus_p.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SubmitedServicesFragment.OnFragmentInteractionListener} interface
+ * {@link StartingFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link SubmitedServicesFragment#newInstance} factory method to
+ * Use the {@link StartingFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
- *
- *Fragmentos para os drivers apenas onde se pode aceitar os serviços
  */
-public class SubmitedServicesFragment extends Fragment {
+public class StartingFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,7 +30,7 @@ public class SubmitedServicesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public SubmitedServicesFragment() {
+    public StartingFragment() {
         // Required empty public constructor
     }
 
@@ -43,11 +40,11 @@ public class SubmitedServicesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SubmitedServicesFragment.
+     * @return A new instance of fragment StartingFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SubmitedServicesFragment newInstance(String param1, String param2) {
-        SubmitedServicesFragment fragment = new SubmitedServicesFragment();
+    public static StartingFragment newInstance(String param1, String param2) {
+        StartingFragment fragment = new StartingFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,7 +65,28 @@ public class SubmitedServicesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_submited_services, container, false);
+        View view =  inflater.inflate(R.layout.fragment_starting, container, false);
+        Button buttonLogin = (Button) view.findViewById(R.id.buttonLogin);
+        Button buttonRegister = (Button)view.findViewById(R.id.buttonRegister);
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoginFragment fragmentL = new LoginFragment();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame,fragmentL);
+                fragmentTransaction.commit();
+            }
+        });
+        buttonRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegisterFragment fragmentR = new RegisterFragment();
+                android.support.v4.app.FragmentTransaction fragmentTransaction =getFragmentManager().beginTransaction() ;
+                fragmentTransaction.replace(R.id.content_frame,fragmentR);
+                fragmentTransaction.commit();
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -78,22 +96,6 @@ public class SubmitedServicesFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
     /**
      * This interface must be implemented by activities that contain this

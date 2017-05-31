@@ -1,9 +1,10 @@
-package layout;
+package uberplus.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import fct.unl.pt.uberplus_p.R;
+import uberplus.fragments.HomeFragment;
 
 public class AccountActivity extends AppCompatActivity {
 

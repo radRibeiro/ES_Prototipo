@@ -1,4 +1,4 @@
-package layout;
+package uberplus.fragments;
 
 import android.content.Context;
 import android.net.Uri;

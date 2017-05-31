@@ -1,26 +1,32 @@
-package layout;
+package uberplus.fragments;
 
-import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import java.util.Iterator;
+import java.util.Set;
+
+import Utils.Preferences;
 import fct.unl.pt.uberplus_p.R;
+import uberplus.activities.AccountActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link StartingFragment.OnFragmentInteractionListener} interface
+ * {@link LoginFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link StartingFragment#newInstance} factory method to
+ * Use the {@link LoginFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StartingFragment extends Fragment {
+public class LoginFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,7 +38,7 @@ public class StartingFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public StartingFragment() {
+    public LoginFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +48,11 @@ public class StartingFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment StartingFragment.
+     * @return A new instance of fragment LoginFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static StartingFragment newInstance(String param1, String param2) {
-        StartingFragment fragment = new StartingFragment();
+    public static LoginFragment newInstance(String param1, String param2) {
+        LoginFragment fragment = new LoginFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,28 +73,40 @@ public class StartingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_starting, container, false);
-        Button buttonLogin = (Button) view.findViewById(R.id.buttonLogin);
-        Button buttonRegister = (Button)view.findViewById(R.id.buttonRegister);
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+        View v = inflater.inflate(R.layout.fragment_login, container, false);
+       final EditText email = (EditText)v.findViewById(R.id.loginEmail);
+        final EditText password = (EditText)v.findViewById(R.id.loginPassword);
+       final Preferences pref = new Preferences(getActivity());
+        Button login = (Button)v.findViewById(R.id.buttonLogin);
+
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginFragment fragmentL = new LoginFragment();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame,fragmentL);
-                fragmentTransaction.commit();
+                    checkCredentials(pref,email.getText().toString(),password.getText().toString());
             }
         });
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentRegister fragmentR = new FragmentRegister();
-                android.support.v4.app.FragmentTransaction fragmentTransaction =getFragmentManager().beginTransaction() ;
-                fragmentTransaction.replace(R.id.content_frame,fragmentR);
-                fragmentTransaction.commit();
-            }
-        });
-        return view;
+        return v;
+    }
+
+    private void checkCredentials(Preferences pref,String email,String pass) {
+        Set<String> emails = pref.getUserEmails();
+        Set<String>passwords = pref.getUserPasswords();
+        Iterator<String> it = emails.iterator();
+        Iterator<String> itP = passwords.iterator();
+        boolean result = false;
+        while(it.hasNext()&&itP.hasNext()){
+            String em = it.next();
+            String password = itP.next();
+            if(em.equals(email)&&password.equals(pass))
+                    result = true;
+        }
+        if(result){
+            Intent intent = new Intent(getActivity(),AccountActivity.class);
+            getActivity().startActivity(intent);
+        }
+        else{
+            Toast.makeText(getActivity(),"Wrong credentials",Toast.LENGTH_SHORT);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -97,6 +115,7 @@ public class StartingFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+
 
 
     /**
