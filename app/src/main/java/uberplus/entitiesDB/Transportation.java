@@ -1,4 +1,4 @@
-package entitiesDB;
+package uberplus.entitiesDB;
 import java.util.Calendar;
 
 public class Transportation extends ServiceRequest {

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import fct.unl.pt.uberplus_p.R;
+import uberplus.activities.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,15 +66,15 @@ public class StartingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_starting, container, false);
+        View view = inflater.inflate(R.layout.fragment_starting, container, false);
         Button buttonLogin = (Button) view.findViewById(R.id.buttonLogin);
-        Button buttonRegister = (Button)view.findViewById(R.id.buttonRegister);
+        Button buttonRegister = (Button) view.findViewById(R.id.buttonRegister);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LoginFragment fragmentL = new LoginFragment();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame,fragmentL);
+                fragmentTransaction.replace(R.id.content_frame, fragmentL);
                 fragmentTransaction.commit();
             }
         });
@@ -81,8 +82,8 @@ public class StartingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 RegisterFragment fragmentR = new RegisterFragment();
-                android.support.v4.app.FragmentTransaction fragmentTransaction =getFragmentManager().beginTransaction() ;
-                fragmentTransaction.replace(R.id.content_frame,fragmentR);
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame, fragmentR);
                 fragmentTransaction.commit();
             }
         });
@@ -111,4 +112,17 @@ public class StartingFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)getActivity()).getSupportActionBar().hide();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((MainActivity)getActivity()).getSupportActionBar().show();
+    }
+
+
 }
