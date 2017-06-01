@@ -170,7 +170,7 @@ public class RegisterFragment extends Fragment {
                             pref.storeUserEmails(emails);
                             pref.storeUserPasswords(passwords);
                         }
-
+                        pref.storeControlRegister(cr);
                         StartingFragment fragmentR = new StartingFragment();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.content_frame,fragmentR);

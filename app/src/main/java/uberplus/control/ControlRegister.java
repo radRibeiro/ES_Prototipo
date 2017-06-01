@@ -1,5 +1,6 @@
 package uberplus.control;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import uberplus.entitiesDB.Costumer;
@@ -7,7 +8,7 @@ import uberplus.entitiesDB.Driver;
 import uberplus.entitiesDB.PersonalData;
 import uberplus.entitiesDB.User;
 
-public class ControlRegister {
+public class ControlRegister implements Serializable {
     HashMap<String, User> users;
         public ControlRegister(){
 
@@ -28,5 +29,8 @@ public class ControlRegister {
         }
        public boolean hasUser(String email){
             return users.containsKey(email);
+        }
+        public User getUser(String email){
+            return users.get(email);
         }
 }

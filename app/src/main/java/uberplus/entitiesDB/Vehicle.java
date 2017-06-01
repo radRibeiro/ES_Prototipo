@@ -6,9 +6,9 @@ public class Vehicle  {
 	String category;
 	String model;
 	String brand;
-	String year;
+	int year;
 	public Vehicle(String licensePlate,float price,String category
-			,String model,String brand,String year){
+			,String model,String brand,int year){
 		this.licensePlate = licensePlate;
 		this.price = price;
 		this.category = category;

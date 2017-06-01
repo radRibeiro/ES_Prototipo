@@ -1,13 +1,16 @@
 package uberplus.entitiesDB;
+import java.io.Serializable;
 import java.util.HashMap;
 
-public abstract class User {
+public abstract class User implements Serializable {
 String email;
 String NIB;
 String password;
 PersonalData personalData;
 HashMap<String,ServiceRequest> services;
-
+	public User(){
+		
+	}
 	public User(String email,String NIB,String password,PersonalData personalData){
 		this.email = email;
 		this.NIB = NIB;
@@ -15,9 +18,9 @@ HashMap<String,ServiceRequest> services;
 		this.personalData = personalData;
 		services = new HashMap<String,ServiceRequest>();
 	}
-	String getEmail(){return email;}
-	String getNIB(){return NIB;}
-	String getPassword(){return password;}
-	PersonalData getPersonalData(){return personalData;}
-	void addServiceRequest(ServiceRequest sr){services.put(sr.getServiceID(), sr);}
+	public String getEmail(){return email;}
+	public String getNIB(){return NIB;}
+	public String getPassword(){return password;}
+	public PersonalData getPersonalData(){return personalData;}
+	public void addServiceRequest(ServiceRequest sr){services.put(sr.getServiceID(), sr);}
 }

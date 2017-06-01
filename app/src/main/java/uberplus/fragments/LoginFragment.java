@@ -105,13 +105,16 @@ public class LoginFragment extends Fragment {
             String em = it.next();
             String password = itP.next();
             if (em.equals(email) && password.equals(pass))
+            {
                 result = true;
+                pref.storeUserEmail(email);
+            }
         }
-        if (true) {
+        if (result) {
             Intent intent = new Intent(getActivity(), AccountActivity.class);
             getActivity().startActivity(intent);
         } else {
-            Toast.makeText(getActivity(), "Wrong credentials", Toast.LENGTH_SHORT);
+            Toast.makeText(getActivity(), "Wrong credentials", Toast.LENGTH_SHORT).show();
         }
     }
 

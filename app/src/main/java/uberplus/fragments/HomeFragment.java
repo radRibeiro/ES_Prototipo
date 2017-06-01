@@ -7,8 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import fct.unl.pt.uberplus_p.R;
+import uberplus.control.ControlRegister;
+import uberplus.utils.Preferences;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,7 +68,14 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
+        Preferences pref = new Preferences(getActivity());
+        ControlRegister cr = pref.getControlRegister();
+        TextView email = (TextView) v.findViewById(R.id.textViewEmail);
+        TextView name = (TextView) v.findViewById(R.id.textViewName);
+        email.setText(pref.getEmail());
+        name.setText(cr.getUser(pref.getEmail()).getPersonalData().getName());
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

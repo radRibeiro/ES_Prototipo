@@ -11,8 +11,8 @@ int age;
 			this.address = address;
 			this.age = age;
 		}
-		String getName(){return name;}
-		String getSurname(){return surname;}
-		String getAddress(){return address;}
-		int getAge(){return age;}
+		public String getName(){return name;}
+	public String getSurname(){return surname;}
+	public 	String getAddress(){return address;}
+	public	int getAge(){return age;}
 }
