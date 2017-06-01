@@ -1,4 +1,4 @@
-package entitiesDB;
+package uberplus.entitiesDB;
 import java.util.HashMap;
 
 public abstract class User {

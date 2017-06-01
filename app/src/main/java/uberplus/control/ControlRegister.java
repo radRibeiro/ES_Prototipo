@@ -1,12 +1,11 @@
-package control;
+package uberplus.control;
 
 import java.util.HashMap;
 
-import Utils.Preferences;
-import entitiesDB.Costumer;
-import entitiesDB.Driver;
-import entitiesDB.PersonalData;
-import entitiesDB.User;
+import uberplus.entitiesDB.Costumer;
+import uberplus.entitiesDB.Driver;
+import uberplus.entitiesDB.PersonalData;
+import uberplus.entitiesDB.User;
 
 public class ControlRegister {
     HashMap<String, User> users;

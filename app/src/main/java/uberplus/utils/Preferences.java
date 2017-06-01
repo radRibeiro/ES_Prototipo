@@ -1,11 +1,9 @@
-package Utils;
+package uberplus.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.Set;
-
-import control.ControlRegister;
 
 /**
  * Created by ricardo on 30/05/2017.

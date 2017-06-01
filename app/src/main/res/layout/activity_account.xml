@@ -6,12 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="fct.unl.pt.uberplus_p.layout.AccountActivity">
+    tools:context="uberplus.activities.AccountActivity"
+    >
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-
-
 </LinearLayout>

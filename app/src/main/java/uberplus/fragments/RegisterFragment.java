@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 import java.util.Set;
 
-import Utils.Preferences;
-import control.ControlRegister;
+import uberplus.utils.Preferences;
+import uberplus.control.ControlRegister;
 import fct.unl.pt.uberplus_p.R;
 
 /**

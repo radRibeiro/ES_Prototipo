@@ -1,4 +1,4 @@
-package entitiesDB;
+package uberplus.entitiesDB;
 import java.util.ArrayList;
 
 public class Driver extends User {

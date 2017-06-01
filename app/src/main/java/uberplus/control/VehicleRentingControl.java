@@ -1,4 +1,4 @@
-package control;
+package uberplus.control;
 
 public class VehicleRentingControl {
 

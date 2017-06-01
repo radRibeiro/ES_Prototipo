@@ -1,4 +1,4 @@
-package entitiesDB;
+package uberplus.entitiesDB;
 
 public class PersonalData {
 String name;

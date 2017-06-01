@@ -1,9 +1,11 @@
 package uberplus.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +16,10 @@ import android.widget.Toast;
 import java.util.Iterator;
 import java.util.Set;
 
-import Utils.Preferences;
 import fct.unl.pt.uberplus_p.R;
 import uberplus.activities.AccountActivity;
+import uberplus.activities.MainActivity;
+import uberplus.utils.Preferences;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,6 +70,7 @@ public class LoginFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -74,38 +78,40 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
-       final EditText email = (EditText)v.findViewById(R.id.loginEmail);
-        final EditText password = (EditText)v.findViewById(R.id.loginPassword);
-       final Preferences pref = new Preferences(getActivity());
-        Button login = (Button)v.findViewById(R.id.buttonLogin);
+        final EditText email = (EditText) v.findViewById(R.id.input_email);
+        final EditText password = (EditText) v.findViewById(R.id.input_password);
+        final Preferences pref = new Preferences(getActivity());
+        Button login = (Button) v.findViewById(R.id.btn_login);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    checkCredentials(pref,email.getText().toString(),password.getText().toString());
+                checkCredentials(pref, email.getText().toString(), password.getText().toString());
             }
         });
+
+
+
         return v;
     }
 
-    private void checkCredentials(Preferences pref,String email,String pass) {
+    private void checkCredentials(Preferences pref, String email, String pass) {
         Set<String> emails = pref.getUserEmails();
-        Set<String>passwords = pref.getUserPasswords();
+        Set<String> passwords = pref.getUserPasswords();
         Iterator<String> it = emails.iterator();
         Iterator<String> itP = passwords.iterator();
         boolean result = false;
-        while(it.hasNext()&&itP.hasNext()){
+        while (it.hasNext() && itP.hasNext()) {
             String em = it.next();
             String password = itP.next();
-            if(em.equals(email)&&password.equals(pass))
-                    result = true;
+            if (em.equals(email) && password.equals(pass))
+                result = true;
         }
-        if(result){
-            Intent intent = new Intent(getActivity(),AccountActivity.class);
+        if (true) {
+            Intent intent = new Intent(getActivity(), AccountActivity.class);
             getActivity().startActivity(intent);
-        }
-        else{
-            Toast.makeText(getActivity(),"Wrong credentials",Toast.LENGTH_SHORT);
+        } else {
+            Toast.makeText(getActivity(), "Wrong credentials", Toast.LENGTH_SHORT);
         }
     }
 
@@ -115,7 +121,6 @@ public class LoginFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
 
 
     /**
@@ -131,5 +136,27 @@ public class LoginFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public View applyStyleToFragment(LayoutInflater inflater, ViewGroup container, int layoutID ){
+        // create ContextThemeWrapper from the original Activity Context with the custom theme
+        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), layoutID);
+
+        // clone the inflater using the ContextThemeWrapper
+        LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
+
+        // inflate the layout using the cloned inflater, not default inflater
+        return localInflater.inflate(layoutID, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)getActivity()).getSupportActionBar().hide();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((MainActivity)getActivity()).getSupportActionBar().show();
     }
 }
