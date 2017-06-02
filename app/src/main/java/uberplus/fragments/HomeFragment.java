@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import fct.unl.pt.uberplus_p.R;
@@ -70,11 +71,34 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         Preferences pref = new Preferences(getActivity());
-        ControlRegister cr = pref.getControlRegister();
+      //  ControlRegister cr = pref.getControlRegister();
         TextView email = (TextView) v.findViewById(R.id.textViewEmail);
         TextView name = (TextView) v.findViewById(R.id.textViewName);
         email.setText(pref.getEmail());
-        name.setText(cr.getUser(pref.getEmail()).getPersonalData().getName());
+        //name.setText(pref.getEmail()));
+
+        Button goToServices = (Button) v.findViewById(R.id.M_services);
+        Button goToCars = (Button)v.findViewById(R.id.M_cars);
+
+        goToServices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ServicesFragment fragmentR = new ServicesFragment();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame,fragmentR);
+                fragmentTransaction.commit();
+            }
+        });
+
+        goToCars.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                VehiclesFragment fragmentR = new VehiclesFragment();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame,fragmentR);
+                fragmentTransaction.commit();
+            }
+        });
         return v;
     }
 

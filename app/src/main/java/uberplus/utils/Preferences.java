@@ -4,10 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Set;
 
 import uberplus.control.ControlRegister;
+import uberplus.entitiesDB.Vehicle;
 
 /**
  * Created by ricardo on 30/05/2017.
@@ -49,6 +53,19 @@ public ControlRegister getControlRegister(){
     Gson gson = new Gson();
     String json = usersPref.getString("CONTROLREG","");
     ControlRegister cr = gson.fromJson(json,ControlRegister.class);
+    return cr;
+}
+public void setCarsCollection(ArrayList<Vehicle> vehicles){
+    Gson gson = new Gson();
+    String json = gson.toJson(vehicles);
+    usersEditor.putString("CARS",json);
+    usersEditor.commit();
+}
+public ArrayList<Vehicle> getCarsCollection(){
+    Gson gson = new Gson();
+    String json = usersPref.getString("CARS",null);
+    Type type = new TypeToken<ArrayList<Vehicle>>(){}.getType();
+    ArrayList<Vehicle> cr = gson.fromJson(json,type);
     return cr;
 }
 public Set<String>getUserEmails(){

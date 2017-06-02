@@ -15,7 +15,7 @@ ArrayList<Vehicle>vehicles;
 		if(!licensePlate.equals(""))
 		{
 			Vehicle startingVehicle = new PersonalVehicle(licensePlate,0.0f,"not available",
-					"not available","not available","not available");
+					"not available","not available",-1);
 			vehicles.add(startingVehicle);
 		}
 		
