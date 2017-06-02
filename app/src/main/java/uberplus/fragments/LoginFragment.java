@@ -97,7 +97,9 @@ public class LoginFragment extends Fragment {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkCredentials(pref, email.getText().toString(), password.getText().toString());
+                //checkCredentials(pref, email.getText().toString(), password.getText().toString());
+                Intent intent = new Intent(getActivity(), AccountActivity.class);
+                getActivity().startActivity(intent);
             }
         });
         driver.setOnClickListener(new View.OnClickListener() {

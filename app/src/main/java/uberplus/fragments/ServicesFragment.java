@@ -7,13 +7,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.List;
 
 import fct.unl.pt.uberplus_p.R;
+import uberplus.activities.AccountActivity;
+import uberplus.entitiesDB.ServiceRequest;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ServicesFragment.OnFragmentInteractionListener} interface
+ * {@link ServiceFragmentInteraction} interface
  * to handle interaction events.
  * Use the {@link ServicesFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -21,6 +28,8 @@ import fct.unl.pt.uberplus_p.R;
 public class ServicesFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    ListView listView ;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -28,7 +37,8 @@ public class ServicesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private ServiceFragmentInteraction mListener;
+    private List<ServiceRequest> requestsList;
 
     public ServicesFragment() {
         // Required empty public constructor
@@ -60,23 +70,58 @@ public class ServicesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_services, container, false);
+        View v = inflater.inflate(R.layout.fragment_services, container, false);
+
+        requestsList = ((AccountActivity)getActivity()).getRequestList();
+        listView = (ListView) v.findViewById(R.id.servicesListView);
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, requestsList);
+        listView.setAdapter(adapter);
+
+        Button requestServiceButton = (Button) v.findViewById(R.id.createRequestButton);
+        requestServiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RequestServiceFragment fragmentS = new RequestServiceFragment();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame_account, fragmentS);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            //mListener.onFragmentInteraction(uri);
         }
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ServiceFragmentInteraction) {
+            mListener = (ServiceFragmentInteraction) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement ServiceFragmentInteraction");
+        }
+    }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -88,8 +133,7 @@ public class ServicesFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public interface ServiceFragmentInteraction {
+        List<ServiceRequest> getRequestList();
     }
 }

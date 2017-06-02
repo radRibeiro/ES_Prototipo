@@ -1,6 +1,5 @@
 package uberplus.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,11 +14,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import fct.unl.pt.uberplus_p.R;
-import uberplus.activities.AccountActivity;
 import uberplus.activities.MainActivity;
-import uberplus.control.ControlRegister;
-import uberplus.entitiesDB.Costumer;
-import uberplus.entitiesDB.Driver;
 import uberplus.entitiesDB.User;
 import uberplus.utils.Preferences;
 
@@ -110,9 +105,9 @@ public class HomeFragment extends Fragment {
         goToServices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ServicesFragment fragmentR = new ServicesFragment();
+                ServicesFragment fragmentS = new ServicesFragment();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame,fragmentR);
+                fragmentTransaction.replace(R.id.content_frame_account, fragmentS);
                 fragmentTransaction.commit();
             }
         });
@@ -122,7 +117,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 VehiclesFragment fragmentR = new VehiclesFragment();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame,fragmentR);
+                fragmentTransaction.replace(R.id.content_frame_account,fragmentR);
                 fragmentTransaction.commit();
             }
         });

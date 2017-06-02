@@ -7,8 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
 
 import fct.unl.pt.uberplus_p.R;
+import uberplus.activities.AccountActivity;
+import uberplus.entitiesDB.FoodDelivery;
+import uberplus.entitiesDB.ServiceRequest;
+import uberplus.entitiesDB.Transportation;
 
 
 /**
@@ -70,12 +77,53 @@ public class RequestServiceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_request, container, false);
+        View v = inflater.inflate(R.layout.fragment_request, container, false);
 
-        //Find the +1 button
+        final Button submitRequestButton = (Button) v.findViewById(R.id.buttonSubmitServiceRequest);
+        final RadioButton foodRadio = (RadioButton)v.findViewById(R.id.foodDeliveryRadio);
+        final RadioButton transportRadio = (RadioButton)v.findViewById(R.id.transportDeliveryRadio);
+        final View foodLay = (View) v.findViewById(R.id.foodDeliveryLay);
+        final View transportLay = (View) v.findViewById(R.id.transportLay);
+
+        final EditText foodDestination = (EditText) v.findViewById(R.id.editTextFoodDelivery);
+        final EditText foodName = (EditText) v.findViewById(R.id.editTextFoodName);
+        final EditText foodQuantity = (EditText) v.findViewById(R.id.editTextFoodQuantity);
+
+        final EditText transportStart = (EditText) v.findViewById(R.id.editTextTransportationStart);
+        final EditText transportDestination = (EditText) v.findViewById(R.id.editTextTransportationDestination);
+        final RadioButton privateRadio = (RadioButton) v.findViewById(R.id.privateRadio);
+
+        foodRadio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                foodLay.setVisibility(view.VISIBLE);
+                transportLay.setVisibility(view.GONE);
+            }
+        });
+        transportRadio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                transportLay.setVisibility(view.VISIBLE);
+                foodLay.setVisibility(view.GONE);
+            }
+        });
+
+        submitRequestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(foodRadio.isChecked()){
+                    FoodDelivery delivery = new FoodDelivery(foodDestination.getText().toString(),foodName.getText().toString(), Integer.parseInt(foodQuantity.getText().toString()));
+                    ((AccountActivity)getActivity()).createRequest(delivery);
+                }
+                else{
+                    Transportation transport = new Transportation(transportStart.getText().toString(),transportDestination.getText().toString(), privateRadio.isChecked());
+                    ((AccountActivity)getActivity()).createRequest(transport);
+                }
+            }
+        });
 
 
-        return view;
+        return v;
     }
 
     @Override
@@ -89,7 +137,7 @@ public class RequestServiceFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            //mListener.onFragmentInteraction(uri);
         }
     }
 
@@ -100,7 +148,7 @@ public class RequestServiceFragment extends Fragment {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement ServiceFragmentInteraction");
         }
     }
 
@@ -121,8 +169,7 @@ public class RequestServiceFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void createRequest(ServiceRequest request);
     }
 
 }

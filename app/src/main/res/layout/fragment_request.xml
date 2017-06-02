@@ -16,7 +16,7 @@
         android:textColor="@android:color/background_dark"
         android:textSize="24sp" />
 
-    <LinearLayout
+    <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/fab_margin"
@@ -24,25 +24,25 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/foodDeliveryRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Food Delivery" />
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/transportDeliveryRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Transport Request" />
-    </LinearLayout>
+    </RadioGroup>
 
     <LinearLayout
         android:id="@+id/foodDeliveryLay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <EditText
@@ -53,6 +53,24 @@
             android:ems="10"
             android:hint="Destination address"
             android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/editTextFoodName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Food description"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/editTextFoodQuantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Quantity"
+            android:inputType="number" />
     </LinearLayout>
 
     <LinearLayout
@@ -60,7 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
 
         <LinearLayout
@@ -70,14 +88,7 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radioButton3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="RadioButton" />
-
-            <RadioButton
-                android:id="@+id/radioButton4"
+                android:id="@+id/privateRadio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -91,7 +102,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/editTextStarting"
+                android:id="@+id/editTextTransportationStart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -99,7 +110,7 @@
                 android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/editTextDestination"
+                android:id="@+id/editTextTransportationDestination"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"

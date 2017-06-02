@@ -1,6 +1,5 @@
 package uberplus.fragments;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -82,43 +81,41 @@ public class VehiclesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_vehicles, container, false);
-        listView = (ListView)v.findViewById(R.id.carsList);
+        listView = (ListView) v.findViewById(R.id.carsList);
         final Preferences pref = new Preferences(getActivity());
         final List<Vehicle> vehiclesList = pref.getCarsCollection();
-        Button addCar = (Button)v.findViewById(R.id.button3);
+        Button addCar = (Button) v.findViewById(R.id.button3);
         addCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_register_vehicle,null);
+                View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_register_vehicle, null);
                 builder.setView(dialogView);
 
-                final    EditText licensePlateT = (EditText)dialogView.findViewById(R.id.editTextLicensePlate);
-                final    EditText brandT = (EditText)dialogView.findViewById(R.id.editTextBrand);
-                final    EditText year = (EditText)dialogView.findViewById(R.id.editTextYear);
-                final    EditText category = (EditText)dialogView.findViewById(R.id.editTextCategory);
-                final    EditText model = (EditText)dialogView.findViewById(R.id.editTextModel);
-                final    EditText price = (EditText)dialogView.findViewById(R.id.editTextPrice);
-                final    EditText monthlyFee = (EditText)dialogView.findViewById(R.id.editTextMFee);
-                final    EditText days = (EditText)dialogView.findViewById(R.id.editTextDuration);
+                final EditText licensePlateT = (EditText) dialogView.findViewById(R.id.editTextLicensePlate);
+                final EditText brandT = (EditText) dialogView.findViewById(R.id.editTextBrand);
+                final EditText year = (EditText) dialogView.findViewById(R.id.editTextYear);
+                final EditText category = (EditText) dialogView.findViewById(R.id.editTextCategory);
+                final EditText model = (EditText) dialogView.findViewById(R.id.editTextModel);
+                final EditText price = (EditText) dialogView.findViewById(R.id.editTextPrice);
+                final EditText monthlyFee = (EditText) dialogView.findViewById(R.id.editTextMFee);
+                final EditText days = (EditText) dialogView.findViewById(R.id.editTextDuration);
 
                 builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                    public void onClick(DialogInterface dialog, int which) {
 
                     }
                 });
                 builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                    public void onClick(DialogInterface dialog, int which) {
                         //String licensePlate, float price,
-                       // String category, String model, String brand, int year,int rentalDuration,float monthlyFee
+                        // String category, String model, String brand, int year,int rentalDuration,float monthlyFee
                         ArrayList<Vehicle> vehicles = pref.getCarsCollection();
                         boolean hasLicensePlate = false;
-                        if(vehicles!=null) {
+                        if (vehicles != null) {
 
                             Iterator<Vehicle> it = vehicles.iterator();
 
@@ -129,24 +126,22 @@ public class VehiclesFragment extends Fragment {
                             }
                         }
                         Vehicle v = new RentedVehicle(licensePlateT.getText().toString(),
-                                    Float.parseFloat(price.getText().toString()),
-                                    category.getText().toString(),
-                                    model.getText().toString(),
-                                    brandT.getText().toString(),
-                                    Integer.parseInt(year.getText().toString()),
-                                    Integer.parseInt(days.getText().toString()),
-                                    Float.parseFloat(monthlyFee.getText().toString()));
+                                Float.parseFloat(price.getText().toString()),
+                                category.getText().toString(),
+                                model.getText().toString(),
+                                brandT.getText().toString(),
+                                Integer.parseInt(year.getText().toString()),
+                                Integer.parseInt(days.getText().toString()),
+                                Float.parseFloat(monthlyFee.getText().toString()));
 
-                        if(pref.getCarsCollection()==null && !hasLicensePlate){
-                            vehicles =   new ArrayList<>();
+                        if (pref.getCarsCollection() == null && !hasLicensePlate) {
+                            vehicles = new ArrayList<>();
                             vehicles.add(v);
                             pref.setCarsCollection(vehicles);
-                        }
-                        else if(pref.getCarsCollection()!=null && !hasLicensePlate){
-                        vehicles.add(v);
-                        pref.setCarsCollection(vehicles);
-                        }
-                        else if(hasLicensePlate){
+                        } else if (pref.getCarsCollection() != null && !hasLicensePlate) {
+                            vehicles.add(v);
+                            pref.setCarsCollection(vehicles);
+                        } else if (hasLicensePlate) {
                             Toast.makeText(getActivity(), "License plate being used", Toast.LENGTH_SHORT).show();
                         }
                         listView.setAdapter(new ArrayAdapter<>(getActivity(),
@@ -162,26 +157,27 @@ public class VehiclesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_vehicle_data,null);
+                View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_vehicle_data, null);
                 TextView vehicleDT = (TextView) dialogView.findViewById(R.id.textViewVehicleData);
                 ArrayList<Vehicle> vehicles = pref.getCarsCollection();
                 Vehicle v = vehicles.get(i);
 
-                vehicleDT.setText(  "BRAND : "+v.getBrand()+"\n"+
-                                    "CATEGORY : "+v.getCategory()+"\n"+
-                                    "MODEL : "+v.getModel()+"\n"+
-                                    "YEAR : "+v.getYear()+"\n"+
-                                    "LICENSE PLATE : "+v.getLicensePlate()+"\n"+
-                                    "PRICE : "+v.getPrice()+" €");
+                vehicleDT.setText("BRAND : " + v.getBrand() + "\n" +
+                        "CATEGORY : " + v.getCategory() + "\n" +
+                        "MODEL : " + v.getModel() + "\n" +
+                        "YEAR : " + v.getYear() + "\n" +
+                        "LICENSE PLATE : " + v.getLicensePlate() + "\n" +
+                        "PRICE : " + v.getPrice() + " €");
 
                 builder.setView(dialogView);
                 builder.create();
                 builder.show();
             }
         });
-        if(pref.getCarsCollection()!=null){
-        listView.setAdapter(new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, vehiclesList));}
+        if (pref.getCarsCollection() != null) {
+            listView.setAdapter(new ArrayAdapter<>(getActivity(),
+                    android.R.layout.simple_list_item_1, vehiclesList));
+        }
         return v;
     }
 
