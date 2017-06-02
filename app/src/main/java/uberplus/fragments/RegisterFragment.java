@@ -12,8 +12,12 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Set;
 
+import uberplus.entitiesDB.Driver;
+import uberplus.entitiesDB.PersonalData;
+import uberplus.entitiesDB.User;
 import uberplus.utils.Preferences;
 import uberplus.control.ControlRegister;
 import fct.unl.pt.uberplus_p.R;
@@ -88,6 +92,8 @@ public class RegisterFragment extends Fragment {
         final EditText licenseP = (EditText)v.findViewById(R.id.licensePlateT);
         final RadioButton costumerR = (RadioButton)v.findViewById(R.id.costumerRadio);
         final RadioButton driverR = (RadioButton)v.findViewById(R.id.driverRadio);
+
+
         costumerR.setChecked(true);
         costumerR.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +115,15 @@ public class RegisterFragment extends Fragment {
         confirmRegist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ArrayList<User> users = pref.getUsersCollection();
+                if(pref.getUsersCollection()==null){
+                    users =   new ArrayList<>();
+                    pref.setUsersCollection(users);
+                }
+                else if(pref.getUsersCollection()!=null){
+
+                    pref.setUsersCollection(users);
+                }
                     if(   name.getText().toString().equals("")
                             ||surName.getText().toString().equals("")
                             ||age.getText().toString().equals("")
@@ -131,8 +146,12 @@ public class RegisterFragment extends Fragment {
                     }
                     else {
                         if(driverR.isChecked()){
-
-                         cr.addUser(name.getText().toString(),
+                            PersonalData personalData = new PersonalData(name.getText().toString()
+                                    ,surName.getText().toString()
+                                    ,address.getText().toString()
+                                    , Integer.parseInt(age.getText().toString()));
+                         cr.addUser(
+                                 name.getText().toString(),
                                 surName.getText().toString(),
                                 Integer.parseInt(age.getText().toString()),
                                 address.getText().toString(),
@@ -141,9 +160,18 @@ public class RegisterFragment extends Fragment {
                                 password.getText().toString(),
                                 drivingL.getText().toString(),
                                 licenseP.getText().toString(),
-                                "Driver");}
+                                "Driver");
+                            User u = cr.getUser(name.getText().toString());
+                            System.out.println(u);
+                            users.add(u);
+                        }
                         else if(costumerR.isChecked()){
-                            cr.addUser(name.getText().toString(),
+                            PersonalData personalData = new PersonalData(name.getText().toString()
+                                    ,surName.getText().toString()
+                                    ,address.getText().toString()
+                                    , Integer.parseInt(age.getText().toString()));
+                            cr.addUser(
+                                    name.getText().toString(),
                                     surName.getText().toString(),
                                     Integer.parseInt(age.getText().toString()),
                                     address.getText().toString(),
@@ -153,6 +181,10 @@ public class RegisterFragment extends Fragment {
                                     "",
                                     "",
                                     "Costumer");
+
+                            User u = cr.getUser(name.getText().toString());
+                            System.out.println(u);
+                            users.add(u);
                         }
                         Toast.makeText(getActivity(),"New user added",Toast.LENGTH_SHORT).show();
                         if(pref.getUserEmails()!=null||pref.getUserPasswords()!=null){
@@ -170,6 +202,7 @@ public class RegisterFragment extends Fragment {
                             pref.storeUserEmails(emails);
                             pref.storeUserPasswords(passwords);
                         }
+                        pref.setUsersCollection(users);
                         pref.storeControlRegister(cr);
                         StartingFragment fragmentR = new StartingFragment();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();

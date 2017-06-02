@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import uberplus.control.ControlRegister;
+import uberplus.entitiesDB.User;
 import uberplus.entitiesDB.Vehicle;
 
 /**
@@ -46,9 +47,17 @@ public void storeUserEmail(String email){
     usersEditor.putString("EMAIL",email);
     usersEditor.commit();
 }
+    public void storeUserFunction(String function){
+        usersEditor.putString("FUNCTION",function);
+        usersEditor.commit();
+    }
 public String getEmail(){
-    return usersPref.getString("EMAIL",null);
-}
+        return usersPref.getString("EMAIL",null);
+    }
+
+    public String getType(){
+        return usersPref.getString("FUNCTION",null);
+    }
 public ControlRegister getControlRegister(){
     Gson gson = new Gson();
     String json = usersPref.getString("CONTROLREG","");
@@ -60,6 +69,19 @@ public void setCarsCollection(ArrayList<Vehicle> vehicles){
     String json = gson.toJson(vehicles);
     usersEditor.putString("CARS",json);
     usersEditor.commit();
+}
+public void setUsersCollection(ArrayList<User> users){
+    Gson gson = new Gson();
+    String json = gson.toJson(users);
+    usersEditor.putString("USERS",json);
+    usersEditor.commit();
+}
+public ArrayList<User> getUsersCollection(){
+    Gson gson = new Gson();
+    String json = usersPref.getString("USERS",null);
+    Type type = new TypeToken<ArrayList<User>>(){}.getType();
+    ArrayList<User> cr = gson.fromJson(json,type);
+    return cr;
 }
 public ArrayList<Vehicle> getCarsCollection(){
     Gson gson = new Gson();

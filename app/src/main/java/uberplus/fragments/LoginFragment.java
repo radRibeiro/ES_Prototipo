@@ -11,14 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
 import fct.unl.pt.uberplus_p.R;
 import uberplus.activities.AccountActivity;
 import uberplus.activities.MainActivity;
+import uberplus.control.ControlRegister;
+import uberplus.entitiesDB.User;
 import uberplus.utils.Preferences;
 
 /**
@@ -38,7 +42,8 @@ public class LoginFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private ArrayList<User>users;
+    ControlRegister cr;
     private OnFragmentInteractionListener mListener;
 
     public LoginFragment() {
@@ -81,16 +86,34 @@ public class LoginFragment extends Fragment {
         final EditText email = (EditText) v.findViewById(R.id.input_email);
         final EditText password = (EditText) v.findViewById(R.id.input_password);
         final Preferences pref = new Preferences(getActivity());
+      //  cr = pref.getControlRegister();
+//        users = pref.getUsersCollection();
+        System.out.println(users);
         Button login = (Button) v.findViewById(R.id.btn_login);
-
+       final RadioButton driver = (RadioButton) v.findViewById(R.id.radioButtonOptDriver);
+       final RadioButton costumer = (RadioButton) v.findViewById(R.id.radioButtonOptCostumer);
+        driver.setChecked(true);
+        pref.storeUserFunction("Driver");
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkCredentials(pref, email.getText().toString(), password.getText().toString());
             }
         });
-
-
+        driver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                costumer.setChecked(false);
+                pref.storeUserFunction("Driver");
+            }
+        });
+        costumer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                driver.setChecked(false);
+                pref.storeUserFunction("Costumer");
+            }
+        });
 
         return v;
     }
@@ -108,9 +131,11 @@ public class LoginFragment extends Fragment {
             {
                 result = true;
                 pref.storeUserEmail(email);
+             //   pref.storeUserFunction(cr.getUser(email).getFunction());
             }
         }
         if (result) {
+
             Intent intent = new Intent(getActivity(), AccountActivity.class);
             getActivity().startActivity(intent);
         } else {

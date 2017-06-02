@@ -117,11 +117,15 @@ public class VehiclesFragment extends Fragment {
                         //String licensePlate, float price,
                        // String category, String model, String brand, int year,int rentalDuration,float monthlyFee
                         ArrayList<Vehicle> vehicles = pref.getCarsCollection();
-                        Iterator<Vehicle> it = vehicles.iterator();
                         boolean hasLicensePlate = false;
-                        while(it.hasNext()){
-                            if(it.next().getLicensePlate().equals(licensePlateT.getText().toString())){
-                                hasLicensePlate=true;
+                        if(vehicles!=null) {
+
+                            Iterator<Vehicle> it = vehicles.iterator();
+
+                            while (it.hasNext()) {
+                                if (it.next().getLicensePlate().equals(licensePlateT.getText().toString())) {
+                                    hasLicensePlate = true;
+                                }
                             }
                         }
                         Vehicle v = new RentedVehicle(licensePlateT.getText().toString(),

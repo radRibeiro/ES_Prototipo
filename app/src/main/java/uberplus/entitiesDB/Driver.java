@@ -6,8 +6,8 @@ String driverLicense;
 String licensePlate;
 ArrayList<Vehicle>vehicles;
 	public Driver(String email, String NIB, String password, PersonalData personalData,
-			String driverLicense,String licensePlate) {
-		super(email, NIB, password, personalData);
+			String driverLicense,String licensePlate,String function) {
+		super(email, NIB, password, personalData,function);
 		// TODO Auto-generated constructor stub
 		this.driverLicense = driverLicense;
 		this.licensePlate = licensePlate;

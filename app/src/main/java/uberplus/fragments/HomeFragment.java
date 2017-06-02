@@ -11,10 +11,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import fct.unl.pt.uberplus_p.R;
 import uberplus.activities.AccountActivity;
 import uberplus.activities.MainActivity;
 import uberplus.control.ControlRegister;
+import uberplus.entitiesDB.Costumer;
+import uberplus.entitiesDB.Driver;
+import uberplus.entitiesDB.User;
 import uberplus.utils.Preferences;
 
 /**
@@ -75,11 +81,22 @@ public class HomeFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         Preferences pref = new Preferences(getActivity());
       //  ControlRegister cr = pref.getControlRegister();
+      //  ArrayList<User> users = pref.getUsersCollection();
+
         TextView email = (TextView) v.findViewById(R.id.textViewEmail);
         TextView name = (TextView) v.findViewById(R.id.textViewName);
+        TextView function = (TextView)v.findViewById(R.id.textViewFunction);
         email.setText(pref.getEmail());
-        //name.setText(pref.getEmail()));
-
+     /*  System.out.println(users);
+        if(users!=null) {
+            System.out.println(users.size());
+            User u = users.get(/*indexOf(pref.getEmail(),users)0);
+            name.setText(u.getPersonalData().getName() + " " + u.getPersonalData().getSurname());
+           System.out.println(u);
+           function.setText(u.getFunction());
+        }*/
+        //name.setText(pref.getEmail());
+        function.setText(pref.getType());
         Button goToServices = (Button) v.findViewById(R.id.M_services);
         Button goToCars = (Button)v.findViewById(R.id.M_cars);
         Button logOut = (Button)v.findViewById(R.id.buttonLogOut);
@@ -110,6 +127,22 @@ public class HomeFragment extends Fragment {
             }
         });
         return v;
+    }
+
+    private int indexOf(String email, ArrayList<User> users) {
+
+        int index = 0;
+        Iterator<User> it = users.iterator();
+            while(it.hasNext()){
+                if(it.next().getEmail().equals(email)){
+
+                    break;
+                }
+                else{
+                    index++;
+                }
+            }
+            return index;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

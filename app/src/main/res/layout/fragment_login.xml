@@ -39,6 +39,26 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:hint="Password"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButtonOptDriver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Driver" />
+
+            <RadioButton
+                android:id="@+id/radioButtonOptCostumer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Costumer" />
+        </LinearLayout>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.v7.widget.AppCompatButton
