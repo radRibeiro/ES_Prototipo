@@ -16,8 +16,16 @@ public class Vehicle  {
 		this.brand = brand;
 		this.year = year;
 	}
-	String getLicensePlate()
+	public String getLicensePlate()
 	{
 		return licensePlate;
 	}
+	public float getPrice()
+	{
+		return price;
+	}
+	public String getCategory(){return category;}
+	public String getModel(){return model;}
+	public String getBrand(){return brand;}
+	public int getYear(){return year;}
 }

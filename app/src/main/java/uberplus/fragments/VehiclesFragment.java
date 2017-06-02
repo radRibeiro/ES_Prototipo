@@ -9,10 +9,12 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,6 +115,7 @@ public class VehiclesFragment extends Fragment {
                         //String licensePlate, float price,
                        // String category, String model, String brand, int year,int rentalDuration,float monthlyFee
                         ArrayList<Vehicle> vehicles = pref.getCarsCollection();
+
                         Vehicle v = new RentedVehicle(licensePlateT.getText().toString(),
                                                         Float.parseFloat(price.getText().toString()),
                                                         category.getText().toString(),
@@ -121,6 +124,7 @@ public class VehiclesFragment extends Fragment {
                                                         Integer.parseInt(year.getText().toString()),
                                                         Integer.parseInt(days.getText().toString()),
                                                         Float.parseFloat(monthlyFee.getText().toString()));
+
                         if(pref.getCarsCollection()==null){
                             vehicles =   new ArrayList<>();
                             vehicles.add(v);
@@ -130,6 +134,7 @@ public class VehiclesFragment extends Fragment {
                         vehicles.add(v);
                         pref.setCarsCollection(vehicles);
                         }
+
                         listView.setAdapter(new ArrayAdapter<>(getActivity(),
                                 android.R.layout.simple_list_item_1, vehicles));
 
@@ -139,8 +144,29 @@ public class VehiclesFragment extends Fragment {
                 builder.show();
             }
         });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_vehicle_data,null);
+                TextView vehicleDT = (TextView) dialogView.findViewById(R.id.textViewVehicleData);
+                ArrayList<Vehicle> vehicles = pref.getCarsCollection();
+                Vehicle v = vehicles.get(i);
+
+                vehicleDT.setText("BRAND : "+v.getBrand()+"\n"+
+                                  "CATEGORY : "+v.getCategory()+"\n"+
+                                  "MODEL : "+v.getModel()+"\n"+
+                                    "YEAR : "+v.getYear()+"\n"+
+                                    "LICENSE PLATE : "+v.getLicensePlate()+"\n"+
+                                    "PRICE : "+v.getPrice()+" €");
+
+                builder.setView(dialogView);
+                builder.create();
+                builder.show();
+            }
+        });
         if(pref.getCarsCollection()!=null){
-        listView.setAdapter(new ArrayAdapter<Vehicle>(getActivity(),
+        listView.setAdapter(new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, vehiclesList));}
         return v;
     }
