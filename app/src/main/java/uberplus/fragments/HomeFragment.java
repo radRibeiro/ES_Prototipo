@@ -1,6 +1,7 @@
 package uberplus.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import fct.unl.pt.uberplus_p.R;
+import uberplus.activities.AccountActivity;
+import uberplus.activities.MainActivity;
 import uberplus.control.ControlRegister;
 import uberplus.utils.Preferences;
 
@@ -79,7 +82,14 @@ public class HomeFragment extends Fragment {
 
         Button goToServices = (Button) v.findViewById(R.id.M_services);
         Button goToCars = (Button)v.findViewById(R.id.M_cars);
-
+        Button logOut = (Button)v.findViewById(R.id.buttonLogOut);
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
         goToServices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

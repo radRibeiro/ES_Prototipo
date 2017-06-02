@@ -15,8 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import fct.unl.pt.uberplus_p.R;
@@ -115,26 +117,34 @@ public class VehiclesFragment extends Fragment {
                         //String licensePlate, float price,
                        // String category, String model, String brand, int year,int rentalDuration,float monthlyFee
                         ArrayList<Vehicle> vehicles = pref.getCarsCollection();
-
+                        Iterator<Vehicle> it = vehicles.iterator();
+                        boolean hasLicensePlate = false;
+                        while(it.hasNext()){
+                            if(it.next().getLicensePlate().equals(licensePlateT.getText().toString())){
+                                hasLicensePlate=true;
+                            }
+                        }
                         Vehicle v = new RentedVehicle(licensePlateT.getText().toString(),
-                                                        Float.parseFloat(price.getText().toString()),
-                                                        category.getText().toString(),
-                                                        model.getText().toString(),
-                                                        brandT.getText().toString(),
-                                                        Integer.parseInt(year.getText().toString()),
-                                                        Integer.parseInt(days.getText().toString()),
-                                                        Float.parseFloat(monthlyFee.getText().toString()));
+                                    Float.parseFloat(price.getText().toString()),
+                                    category.getText().toString(),
+                                    model.getText().toString(),
+                                    brandT.getText().toString(),
+                                    Integer.parseInt(year.getText().toString()),
+                                    Integer.parseInt(days.getText().toString()),
+                                    Float.parseFloat(monthlyFee.getText().toString()));
 
-                        if(pref.getCarsCollection()==null){
+                        if(pref.getCarsCollection()==null && !hasLicensePlate){
                             vehicles =   new ArrayList<>();
                             vehicles.add(v);
                             pref.setCarsCollection(vehicles);
                         }
-                        else{
+                        else if(pref.getCarsCollection()!=null && !hasLicensePlate){
                         vehicles.add(v);
                         pref.setCarsCollection(vehicles);
                         }
-
+                        else if(hasLicensePlate){
+                            Toast.makeText(getActivity(), "License plate being used", Toast.LENGTH_SHORT).show();
+                        }
                         listView.setAdapter(new ArrayAdapter<>(getActivity(),
                                 android.R.layout.simple_list_item_1, vehicles));
 
@@ -153,9 +163,9 @@ public class VehiclesFragment extends Fragment {
                 ArrayList<Vehicle> vehicles = pref.getCarsCollection();
                 Vehicle v = vehicles.get(i);
 
-                vehicleDT.setText("BRAND : "+v.getBrand()+"\n"+
-                                  "CATEGORY : "+v.getCategory()+"\n"+
-                                  "MODEL : "+v.getModel()+"\n"+
+                vehicleDT.setText(  "BRAND : "+v.getBrand()+"\n"+
+                                    "CATEGORY : "+v.getCategory()+"\n"+
+                                    "MODEL : "+v.getModel()+"\n"+
                                     "YEAR : "+v.getYear()+"\n"+
                                     "LICENSE PLATE : "+v.getLicensePlate()+"\n"+
                                     "PRICE : "+v.getPrice()+" €");
