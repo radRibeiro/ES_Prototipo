@@ -3,7 +3,7 @@ package uberplus.entitiesDB;
 import java.util.Calendar;
 import java.util.Date;
 
-public abstract class ServiceRequest {
+public class ServiceRequest {
     private String originAddress;
     private String destinationAddress;
     private RequestStatus status;
@@ -28,7 +28,7 @@ public abstract class ServiceRequest {
         return status;
     }
 
-    String getOriginAndDestAddress() {
+  public  String getOriginAndDestAddress() {
         return originAddress + "//" + destinationAddress;
     }
 

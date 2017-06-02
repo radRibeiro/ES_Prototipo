@@ -2,7 +2,7 @@ package uberplus.entitiesDB;
 
 import java.util.HashMap;
 
-public abstract class User {
+public class User {
     String email;
     String NIB;
     String password;

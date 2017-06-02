@@ -1,21 +1,35 @@
 package uberplus.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import fct.unl.pt.uberplus_p.R;
 import uberplus.activities.AccountActivity;
+import uberplus.entitiesDB.FoodDelivery;
+import uberplus.entitiesDB.RentedVehicle;
 import uberplus.entitiesDB.ServiceRequest;
+import uberplus.entitiesDB.Transportation;
+import uberplus.entitiesDB.Vehicle;
+import uberplus.utils.Preferences;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,24 +92,119 @@ public class ServicesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_services, container, false);
-
-        requestsList = ((AccountActivity)getActivity()).getRequestList();
         listView = (ListView) v.findViewById(R.id.servicesListView);
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, requestsList);
-        listView.setAdapter(adapter);
-
+        final Preferences pref = new Preferences(getActivity());
+        final List<ServiceRequest> servicesList = pref.getServicesCollection();
         Button requestServiceButton = (Button) v.findViewById(R.id.createRequestButton);
+
+
         requestServiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RequestServiceFragment fragmentS = new RequestServiceFragment();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame_account, fragmentS);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                if(pref.getType().equals("Driver"))
+                {
+                    Toast.makeText(getActivity(),"You are Driver",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    View dialogView = getActivity().getLayoutInflater().inflate(R.layout.fragment_request, null);
+                    builder.setView(dialogView);
+                    // final Button submitRequestButton = (Button) dialogView.findViewById(R.id.buttonSubmitServiceRequest);
+                    final RadioButton foodRadio = (RadioButton) dialogView.findViewById(R.id.foodDeliveryRadio);
+                    final RadioButton transportRadio = (RadioButton) dialogView.findViewById(R.id.transportDeliveryRadio);
+                    final View foodLay = (View) dialogView.findViewById(R.id.foodDeliveryLay);
+                    final View transportLay = (View) dialogView.findViewById(R.id.transportLay);
+
+                    final EditText foodDestination = (EditText) dialogView.findViewById(R.id.editTextFoodDelivery);
+                    final EditText foodName = (EditText) dialogView.findViewById(R.id.editTextFoodName);
+                    final EditText foodQuantity = (EditText) dialogView.findViewById(R.id.editTextFoodQuantity);
+
+                    final EditText transportStart = (EditText) dialogView.findViewById(R.id.editTextTransportationStart);
+                    final EditText transportDestination = (EditText) dialogView.findViewById(R.id.editTextTransportationDestination);
+                    final RadioButton privateRadio = (RadioButton) dialogView.findViewById(R.id.privateRadio);
+                    foodRadio.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            transportRadio.setChecked(false);
+                            foodLay.setVisibility(view.VISIBLE);
+                            transportLay.setVisibility(view.GONE);
+                            privateRadio.setVisibility(view.GONE);
+                        }
+                    });
+                    transportRadio.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            foodRadio.setChecked(false);
+                            transportLay.setVisibility(view.VISIBLE);
+                            foodLay.setVisibility(view.GONE);
+                            privateRadio.setVisibility(view.VISIBLE);
+                        }
+                    });
+                    builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //String licensePlate, float price,
+                            // String category, String model, String brand, int year,int rentalDuration,float monthlyFee
+                            ArrayList<ServiceRequest> services = pref.getServicesCollection();
+                            if (transportRadio.isChecked()) {
+                                Transportation request = new Transportation(transportStart.getText().toString(),
+                                        transportDestination.getText().toString(),
+                                        privateRadio.isChecked());
+                                System.out.println(request);
+                                if (services == null) {
+                                    services = new ArrayList<>();
+                                }
+                                services.add(request);
+                                pref.setServicesCollection(services);
+                            } else if (foodRadio.isChecked()) {
+                                FoodDelivery request = new FoodDelivery(foodDestination.getText().toString(),
+                                        foodName.getText().toString(),
+                                        Integer.parseInt(foodQuantity.getText().toString()));
+                                if (services == null) {
+                                    services = new ArrayList<>();
+
+                                }
+                                services.add(request);
+                                pref.setServicesCollection(services);
+                            }
+
+                            listView.setAdapter(new ArrayAdapter<>(getActivity(),
+                                    android.R.layout.simple_list_item_1, services));
+
+                        }
+                    });
+                    builder.create();
+                    builder.show();
+                }
             }
         });
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_actions, null);
+                TextView vehicleDT = (TextView) dialogView.findViewById(R.id.textView5);
+                ArrayList<ServiceRequest> services = pref.getServicesCollection();
+                ServiceRequest sr = services.get(i);
+                System.out.println(sr instanceof FoodDelivery);
+                    vehicleDT.setText(
+                            "TRAJECTORY : " + sr.getOriginAndDestAddress() + "\n" +
+                            "STATUS : " + sr.getStatus() + "\n");
+                builder.setView(dialogView);
+                builder.create();
+                builder.show();
+            }
+        });
+        if (pref.getServicesCollection() != null) {
+            listView.setAdapter(new ArrayAdapter<>(getActivity(),
+                    android.R.layout.simple_list_item_1, servicesList));
+        }
         return v;
     }
 

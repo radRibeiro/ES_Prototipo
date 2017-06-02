@@ -78,8 +78,6 @@ public class RequestServiceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_request, container, false);
-
-        final Button submitRequestButton = (Button) v.findViewById(R.id.buttonSubmitServiceRequest);
         final RadioButton foodRadio = (RadioButton)v.findViewById(R.id.foodDeliveryRadio);
         final RadioButton transportRadio = (RadioButton)v.findViewById(R.id.transportDeliveryRadio);
         final View foodLay = (View) v.findViewById(R.id.foodDeliveryLay);
@@ -96,32 +94,21 @@ public class RequestServiceFragment extends Fragment {
         foodRadio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                transportRadio.setChecked(false);
                 foodLay.setVisibility(view.VISIBLE);
                 transportLay.setVisibility(view.GONE);
+                privateRadio.setVisibility(view.GONE);
             }
         });
         transportRadio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                foodRadio.setChecked(false);
                 transportLay.setVisibility(view.VISIBLE);
                 foodLay.setVisibility(view.GONE);
+                privateRadio.setVisibility(view.VISIBLE);
             }
         });
-
-        submitRequestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(foodRadio.isChecked()){
-                    FoodDelivery delivery = new FoodDelivery(foodDestination.getText().toString(),foodName.getText().toString(), Integer.parseInt(foodQuantity.getText().toString()));
-                    ((AccountActivity)getActivity()).createRequest(delivery);
-                }
-                else{
-                    Transportation transport = new Transportation(transportStart.getText().toString(),transportDestination.getText().toString(), privateRadio.isChecked());
-                    ((AccountActivity)getActivity()).createRequest(transport);
-                }
-            }
-        });
-
 
         return v;
     }

@@ -12,14 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="uberplus.activities.MainActivity">
+        <activity android:name="uberplus.activities.MainActivity"
+                        android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="uberplus.activities.AccountActivity"></activity>
+        <activity android:name="uberplus.activities.AccountActivity"
+                    android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

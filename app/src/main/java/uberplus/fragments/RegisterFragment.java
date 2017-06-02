@@ -41,7 +41,7 @@ public class RegisterFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
+    public ControlRegister cr;
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -79,7 +79,7 @@ public class RegisterFragment extends Fragment {
         // Inflate the layout for this fragment
         final View v =  inflater.inflate(R.layout.fragment_register, container, false);
         final Preferences pref = new Preferences(getActivity());
-        final ControlRegister cr = new ControlRegister();
+        cr = new ControlRegister();
         final EditText name = (EditText)v.findViewById(R.id.NameT);
         final EditText surName = (EditText)v.findViewById(R.id.SurnameT);
         final EditText age = (EditText)v.findViewById(R.id.AgeT);
@@ -214,7 +214,9 @@ public class RegisterFragment extends Fragment {
         });
         return v;
     }
-
+    public ControlRegister  onRetainCustomNonConfigurationInstance(){
+        return cr;
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

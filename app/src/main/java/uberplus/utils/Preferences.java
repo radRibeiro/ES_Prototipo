@@ -1,5 +1,6 @@
 package uberplus.utils;
 
+import android.app.Service;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import uberplus.control.ControlRegister;
+import uberplus.entitiesDB.ServiceRequest;
 import uberplus.entitiesDB.User;
 import uberplus.entitiesDB.Vehicle;
 
@@ -85,7 +87,12 @@ public class Preferences {
         usersEditor.putString("USERS", json);
         usersEditor.commit();
     }
-
+public void setServicesCollection(ArrayList<ServiceRequest> services){
+    Gson gson = new Gson();
+    String json = gson.toJson(services);
+    usersEditor.putString("SERVICES", json);
+    usersEditor.commit();
+}
     public ArrayList<User> getUsersCollection() {
         Gson gson = new Gson();
         String json = usersPref.getString("USERS", null);
@@ -112,4 +119,13 @@ public class Preferences {
         return usersPref.getStringSet("PASS", null);
     }
 
+    public ArrayList<ServiceRequest> getServicesCollection() {
+
+        Gson gson = new Gson();
+        String json = usersPref.getString("SERVICES", null);
+        Type type = new TypeToken<ArrayList<ServiceRequest>>() {
+        }.getType();
+        ArrayList<ServiceRequest> cr = gson.fromJson(json, type);
+        return cr;
+    }
 }
