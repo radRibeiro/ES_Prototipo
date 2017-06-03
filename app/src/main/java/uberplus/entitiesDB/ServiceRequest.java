@@ -3,7 +3,7 @@ package uberplus.entitiesDB;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ServiceRequest {
+public abstract class ServiceRequest {
     private String originAddress;
     private String destinationAddress;
     private RequestStatus status;
@@ -11,8 +11,10 @@ public class ServiceRequest {
     private Calendar startTime;
     private Calendar estimatedEndTime;
     private String licensePlate;
+    private int serviceID;
 
-    public enum RequestStatus { NOT_ACCEPTED, ACCEPTED, FINISHED }
+
+    public enum RequestStatus { NOT_ACCEPTED, ACCEPTED, PAID }
 
     public ServiceRequest(String originAddress, String destinationAddress) {
         this.originAddress = originAddress;
@@ -24,15 +26,50 @@ public class ServiceRequest {
         this.licensePlate = null;
     }
 
+
+    public String getServiceType() {
+        if(this instanceof FoodDelivery)
+            return "Food Delivery";
+        else return "Transportation";
+    }
+
+    public void setStatus(RequestStatus status) {
+        this.status = status;
+    }
+
+    public void setServiceID(int serviceID) {
+        this.serviceID = serviceID;
+    }
+
+    public int getServiceID() {
+        return serviceID;
+    }
+
+    public void setPayment(float payment) {
+        this.payment = payment;
+    }
+
     public RequestStatus getStatus() {
         return status;
     }
 
-  public  String getOriginAndDestAddress() {
+    public String getOriginAndDestAddress() {
         return originAddress + "//" + destinationAddress;
     }
 
-    float getServicePayment() {
+    public String getOriginAddress() {
+        return originAddress;
+    }
+
+    public String getDestinationAddress() {
+        return destinationAddress;
+    }
+
+    public float getPayment() {
+        return payment;
+    }
+
+    public float getServicePayment() {
         return payment;
     }
 

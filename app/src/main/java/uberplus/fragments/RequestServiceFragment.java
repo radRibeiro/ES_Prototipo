@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Switch;
 
 import fct.unl.pt.uberplus_p.R;
 import uberplus.activities.AccountActivity;
@@ -78,6 +79,8 @@ public class RequestServiceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_request, container, false);
+
+        final Button submitRequestButton = (Button) v.findViewById(R.id.buttonSubmitServiceRequest);
         final RadioButton foodRadio = (RadioButton)v.findViewById(R.id.foodDeliveryRadio);
         final RadioButton transportRadio = (RadioButton)v.findViewById(R.id.transportDeliveryRadio);
         final View foodLay = (View) v.findViewById(R.id.foodDeliveryLay);
@@ -89,26 +92,44 @@ public class RequestServiceFragment extends Fragment {
 
         final EditText transportStart = (EditText) v.findViewById(R.id.editTextTransportationStart);
         final EditText transportDestination = (EditText) v.findViewById(R.id.editTextTransportationDestination);
-        final RadioButton privateRadio = (RadioButton) v.findViewById(R.id.privateRadio);
+        final Switch privateSwitch = (Switch) v.findViewById(R.id.privateSwitch);
+
+        transportRadio.setChecked(true);
 
         foodRadio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transportRadio.setChecked(false);
                 foodLay.setVisibility(view.VISIBLE);
                 transportLay.setVisibility(view.GONE);
-                privateRadio.setVisibility(view.GONE);
             }
         });
         transportRadio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                foodRadio.setChecked(false);
                 transportLay.setVisibility(view.VISIBLE);
                 foodLay.setVisibility(view.GONE);
-                privateRadio.setVisibility(view.VISIBLE);
             }
         });
+
+        submitRequestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(foodRadio.isChecked()){
+                    FoodDelivery delivery = new FoodDelivery(foodDestination.getText().toString(),foodName.getText().toString(), Integer.parseInt(foodQuantity.getText().toString()));
+                    ((AccountActivity)getActivity()).createRequest(delivery);
+                }
+                else{
+                    Transportation transport = new Transportation(transportStart.getText().toString(),transportDestination.getText().toString(), privateSwitch.isChecked());
+                    ((AccountActivity)getActivity()).createRequest(transport);
+                }
+
+                ServicesFragment fragmentS = new ServicesFragment();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame_account, fragmentS);
+                fragmentTransaction.commit();
+            }
+        });
+
 
         return v;
     }
@@ -158,5 +179,6 @@ public class RequestServiceFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void createRequest(ServiceRequest request);
     }
+
 
 }
