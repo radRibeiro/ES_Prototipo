@@ -122,7 +122,6 @@ public class RequestServiceFragment extends Fragment {
                     Transportation transport = new Transportation(transportStart.getText().toString(),transportDestination.getText().toString(), privateSwitch.isChecked());
                     ((AccountActivity)getActivity()).createRequest(transport);
                 }
-
                 ServicesFragment fragmentS = new ServicesFragment();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.content_frame_account, fragmentS);

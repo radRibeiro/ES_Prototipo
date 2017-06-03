@@ -20,7 +20,7 @@ public class ServiceListAdapter extends ArrayAdapter<ServiceRequest> implements 
     Context mContext;
 
     // View lookup cache
-    private static class ViewHolder {
+    static class ViewHolder {
         TextView idView;
         TextView serviceTypeView;
         TextView timestampView;

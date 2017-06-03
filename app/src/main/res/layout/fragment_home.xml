@@ -63,6 +63,7 @@
                     android:background="@android:color/holo_red_light"
                     android:text="Log out"
                     android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
             </LinearLayout>
 
         </LinearLayout>

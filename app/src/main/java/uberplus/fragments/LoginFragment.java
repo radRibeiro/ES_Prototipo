@@ -42,7 +42,7 @@ public class LoginFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<User>users;
+    private ArrayList<User> users;
     ControlRegister cr;
     private OnFragmentInteractionListener mListener;
 
@@ -86,15 +86,18 @@ public class LoginFragment extends Fragment {
         final EditText email = (EditText) v.findViewById(R.id.input_email);
         final EditText password = (EditText) v.findViewById(R.id.input_password);
         final Preferences pref = new Preferences(getActivity());
-      //  cr = pref.getControlRegister();
+        //  cr = pref.getControlRegister();
 //        users = pref.getUsersCollection();
         System.out.println(users);
-        Button login = (Button) v.findViewById(R.id.btn_login);
-       final RadioButton driver = (RadioButton) v.findViewById(R.id.radioButtonOptDriver);
-       final RadioButton costumer = (RadioButton) v.findViewById(R.id.radioButtonOptCostumer);
+        Button buttonLogin = (Button) v.findViewById(R.id.btn_login);
+        Button buttonRegister = (Button) v.findViewById(R.id.btn_register);
+
+        final RadioButton driver = (RadioButton) v.findViewById(R.id.radioButtonOptDriver);
+        final RadioButton costumer = (RadioButton) v.findViewById(R.id.radioButtonOptCostumer);
         driver.setChecked(true);
         pref.storeUserFunction("Driver");
-        login.setOnClickListener(new View.OnClickListener() {
+
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //checkCredentials(pref, email.getText().toString(), password.getText().toString());
@@ -102,6 +105,17 @@ public class LoginFragment extends Fragment {
                 getActivity().startActivity(intent);
             }
         });
+
+        buttonRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegisterFragment fragmentR = new RegisterFragment();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame, fragmentR);
+                fragmentTransaction.commit();
+            }
+        });
+
         driver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,11 +143,10 @@ public class LoginFragment extends Fragment {
         while (it.hasNext() && itP.hasNext()) {
             String em = it.next();
             String password = itP.next();
-            if (em.equals(email) && password.equals(pass))
-            {
+            if (em.equals(email) && password.equals(pass)) {
                 result = true;
                 pref.storeUserEmail(email);
-             //   pref.storeUserFunction(cr.getUser(email).getFunction());
+                //   pref.storeUserFunction(cr.getUser(email).getFunction());
             }
         }
         if (result) {
@@ -168,7 +181,7 @@ public class LoginFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public View applyStyleToFragment(LayoutInflater inflater, ViewGroup container, int layoutID ){
+    public View applyStyleToFragment(LayoutInflater inflater, ViewGroup container, int layoutID) {
         // create ContextThemeWrapper from the original Activity Context with the custom theme
         final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), layoutID);
 
@@ -182,11 +195,12 @@ public class LoginFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity)getActivity()).getSupportActionBar().hide();
+        ((MainActivity) getActivity()).getSupportActionBar().hide();
     }
+
     @Override
     public void onStop() {
         super.onStop();
-        ((MainActivity)getActivity()).getSupportActionBar().show();
+        ((MainActivity) getActivity()).getSupportActionBar().show();
     }
 }

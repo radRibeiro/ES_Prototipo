@@ -1,6 +1,5 @@
 package uberplus.utils;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -12,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import uberplus.control.ControlRegister;
+import uberplus.entitiesDB.RentedVehicle;
 import uberplus.entitiesDB.ServiceRequest;
 import uberplus.entitiesDB.User;
-import uberplus.entitiesDB.Vehicle;
 
 /**
  * Created by ricardo on 30/05/2017.
@@ -74,7 +73,7 @@ public class Preferences {
         return cr;
     }
 
-    public void setCarsCollection(ArrayList<Vehicle> vehicles) {
+    public void setCarsCollection(ArrayList<RentedVehicle> vehicles) {
         Gson gson = new Gson();
         String json = gson.toJson(vehicles);
         usersEditor.putString("CARS", json);
@@ -87,12 +86,14 @@ public class Preferences {
         usersEditor.putString("USERS", json);
         usersEditor.commit();
     }
-public void setServicesCollection(ArrayList<ServiceRequest> services){
-    Gson gson = new Gson();
-    String json = gson.toJson(services);
-    usersEditor.putString("SERVICES", json);
-    usersEditor.commit();
-}
+
+    public void setServicesCollection(ArrayList<ServiceRequest> services) {
+        Gson gson = new Gson();
+        String json = gson.toJson(services);
+        usersEditor.putString("SERVICES", json);
+        usersEditor.commit();
+    }
+
     public ArrayList<User> getUsersCollection() {
         Gson gson = new Gson();
         String json = usersPref.getString("USERS", null);
@@ -102,12 +103,12 @@ public void setServicesCollection(ArrayList<ServiceRequest> services){
         return cr;
     }
 
-    public ArrayList<Vehicle> getCarsCollection() {
+    public ArrayList<RentedVehicle> getRentedCarsCollection() {
         Gson gson = new Gson();
         String json = usersPref.getString("CARS", null);
-        Type type = new TypeToken<ArrayList<Vehicle>>() {
+        Type type = new TypeToken<ArrayList<RentedVehicle>>() {
         }.getType();
-        ArrayList<Vehicle> cr = gson.fromJson(json, type);
+        ArrayList<RentedVehicle> cr = gson.fromJson(json, type);
         return cr;
     }
 

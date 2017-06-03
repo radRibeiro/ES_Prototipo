@@ -3,6 +3,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import fct.unl.pt.uberplus_p.R;
+import uberplus.fragments.LoginFragment;
 import uberplus.fragments.StartingFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -11,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        StartingFragment fragmentR = new StartingFragment();
+        LoginFragment fragmentR = new LoginFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_frame,fragmentR);
         fragmentTransaction.commit();

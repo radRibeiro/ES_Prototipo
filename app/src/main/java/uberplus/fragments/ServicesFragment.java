@@ -39,7 +39,7 @@ public class ServicesFragment extends Fragment {
     ListView listView;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static ServiceListAdapter adapter;
+        private static ServiceListAdapter adapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;

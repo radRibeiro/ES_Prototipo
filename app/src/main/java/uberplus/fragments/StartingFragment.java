@@ -66,9 +66,9 @@ public class StartingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_starting, container, false);
-        Button buttonLogin = (Button) view.findViewById(R.id.buttonLogin);
-        Button buttonRegister = (Button) view.findViewById(R.id.buttonRegister);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        Button buttonLogin = (Button) view.findViewById(R.id.btn_login);
+        Button buttonRegister = (Button) view.findViewById(R.id.btn_register);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

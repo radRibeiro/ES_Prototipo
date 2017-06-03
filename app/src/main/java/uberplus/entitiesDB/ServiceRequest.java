@@ -3,6 +3,8 @@ package uberplus.entitiesDB;
 import java.util.Calendar;
 import java.util.Date;
 
+import uberplus.utils.Utilities;
+
 public abstract class ServiceRequest {
     private String originAddress;
     private String destinationAddress;
@@ -21,7 +23,7 @@ public abstract class ServiceRequest {
         this.destinationAddress = destinationAddress;
         this.payment = 0f;
         this.status = RequestStatus.NOT_ACCEPTED;
-        this.startTime = createCalendarDate();
+        this.startTime = Utilities.createCalendarDate();
         this.estimatedEndTime = null;
         this.licensePlate = null;
     }
@@ -89,13 +91,6 @@ public abstract class ServiceRequest {
 
     public void setLicensePlate(String setLicense) {
         licensePlate = setLicense;
-    }
-
-
-    private Calendar createCalendarDate(){
-        Calendar calendar = Calendar.getInstance();
-        return calendar;
-
     }
 
 }
