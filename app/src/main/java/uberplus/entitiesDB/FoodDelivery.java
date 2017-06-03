@@ -5,7 +5,7 @@ public class FoodDelivery extends ServiceRequest {
     int quantity;
 
     public FoodDelivery( String destinationAddress, String foodName, int quantity) {
-        super("", destinationAddress);
+        super("", destinationAddress,"FOOD DELIVERY");
         this.foodName = foodName;
         this.quantity = quantity;
     }

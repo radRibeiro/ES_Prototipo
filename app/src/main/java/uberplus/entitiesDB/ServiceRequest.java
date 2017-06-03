@@ -12,9 +12,9 @@ public class ServiceRequest {
     private Calendar estimatedEndTime;
     private String licensePlate;
 
-    public enum RequestStatus { NOT_ACCEPTED, ACCEPTED, FINISHED }
+    public enum RequestStatus { NOT_ACCEPTED, ACCEPTED, PAID }
 
-    public ServiceRequest(String originAddress, String destinationAddress) {
+    public ServiceRequest(String originAddress, String destinationAddress,String type) {
         this.originAddress = originAddress;
         this.destinationAddress = destinationAddress;
         this.payment = 0f;
