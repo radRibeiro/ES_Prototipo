@@ -75,12 +75,12 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         Preferences pref = new Preferences(getActivity());
-      //  ControlRegister cr = pref.getControlRegister();
-      //  ArrayList<User> users = pref.getUsersCollection();
+        //  ControlRegister cr = pref.getControlRegister();
+        //  ArrayList<User> users = pref.getUsersCollection();
 
         TextView email = (TextView) v.findViewById(R.id.textViewEmail);
         TextView name = (TextView) v.findViewById(R.id.textViewName);
-        TextView function = (TextView)v.findViewById(R.id.textViewFunction);
+        TextView function = (TextView) v.findViewById(R.id.textViewFunction);
         email.setText(pref.getEmail());
      /*  System.out.println(users);
         if(users!=null) {
@@ -93,8 +93,8 @@ public class HomeFragment extends Fragment {
         //name.setText(pref.getEmail());
         function.setText(pref.getType());
         Button goToServices = (Button) v.findViewById(R.id.M_services);
-        Button goToCars = (Button)v.findViewById(R.id.M_cars);
-        Button logOut = (Button)v.findViewById(R.id.buttonLogOut);
+        Button goToCars = (Button) v.findViewById(R.id.M_cars);
+        Button logOut = (Button) v.findViewById(R.id.buttonLogOut);
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +117,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 VehiclesFragment fragmentR = new VehiclesFragment();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame_account,fragmentR);
+                fragmentTransaction.replace(R.id.content_frame_account, fragmentR);
                 fragmentTransaction.commit();
             }
         });
@@ -128,16 +128,15 @@ public class HomeFragment extends Fragment {
 
         int index = 0;
         Iterator<User> it = users.iterator();
-            while(it.hasNext()){
-                if(it.next().getEmail().equals(email)){
+        while (it.hasNext()) {
+            if (it.next().getEmail().equals(email)) {
 
-                    break;
-                }
-                else{
-                    index++;
-                }
+                break;
+            } else {
+                index++;
             }
-            return index;
+        }
+        return index;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

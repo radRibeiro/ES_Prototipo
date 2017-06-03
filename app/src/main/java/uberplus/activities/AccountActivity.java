@@ -3,6 +3,7 @@ package uberplus.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fct.unl.pt.uberplus_p.R;
@@ -43,7 +44,7 @@ public class AccountActivity extends AppCompatActivity implements RequestService
     }
 
     @Override
-    public List<ServiceRequest> getRequestList() {
+    public ArrayList<ServiceRequest> getRequestList() {
         return requestControl.getAllRequests();
     }
 }

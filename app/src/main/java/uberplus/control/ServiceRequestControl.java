@@ -3,7 +3,6 @@ package uberplus.control;
 import android.util.SparseArray;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import uberplus.entitiesDB.ServiceRequest;
 
@@ -17,6 +16,7 @@ public class ServiceRequestControl {
     }
 
     public void createRequest(ServiceRequest request){
+        request.setServiceID(serviceID);
         map.put(serviceID++, request);
     }
 
@@ -24,8 +24,8 @@ public class ServiceRequestControl {
             return map.get(serviceID);
     }
 
-    public List<ServiceRequest> getAllRequests(){
-        List<ServiceRequest> list = new ArrayList<ServiceRequest>(map.size());
+    public ArrayList<ServiceRequest> getAllRequests(){
+        ArrayList<ServiceRequest> list = new ArrayList<ServiceRequest>(map.size());
         for(int i = 0; i < map.size(); i++) {
             int key = map.keyAt(i);
             list.add(map.get(key));
