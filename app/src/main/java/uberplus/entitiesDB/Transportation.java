@@ -4,7 +4,7 @@ public class Transportation extends ServiceRequest {
     boolean isPrivate;
 
     public Transportation(String originAddress, String destinationAddress, boolean isPrivate) {
-        super(originAddress, destinationAddress,"TRANSPORTATION");
+        super(originAddress, destinationAddress);
         this.isPrivate = isPrivate;
     }
 

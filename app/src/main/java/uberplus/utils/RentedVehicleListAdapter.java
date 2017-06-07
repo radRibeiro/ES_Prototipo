@@ -110,4 +110,5 @@ public class RentedVehicleListAdapter extends ArrayAdapter<RentedVehicle> implem
         // Return the completed view to render on screen
         return convertView;
     }
+
 }

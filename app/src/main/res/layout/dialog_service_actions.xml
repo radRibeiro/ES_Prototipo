@@ -14,9 +14,10 @@
             android:id="@+id/serviceDataLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/marginEditText"
-            android:text="Service Description :"
+            android:text="Service Description"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <View style="@style/Divider" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,11 +39,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/originAddressLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="gone"
-            android:id="@+id/originAddressLayout">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/startingDestinationDialogLabel"
@@ -80,11 +81,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/foodNameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="gone"
-            android:id="@+id/foodNameLayout">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/foodNameDialogLabel"
@@ -102,12 +103,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/foodQuantityLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/marginEditText"
             android:orientation="horizontal"
-            android:visibility="gone"
-            android:id="@+id/foodQuantityLayout">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/foodQuantityDialogLabel"
@@ -125,12 +126,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/privateLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/marginEditText"
             android:orientation="horizontal"
-            android:visibility="gone"
-            android:id="@+id/privateLayout">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/privateDialogLabel"
@@ -138,15 +139,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Private"
-                android:textColor="@color/colorAccent"/>
+                android:textColor="@color/colorAccent" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+
+        <View style="@style/Divider" />
 
         <LinearLayout
             android:layout_width="match_parent"

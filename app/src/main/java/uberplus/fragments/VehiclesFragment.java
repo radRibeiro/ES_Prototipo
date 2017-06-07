@@ -19,72 +19,45 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import fct.unl.pt.uberplus_p.R;
-import uberplus.activities.AccountActivity;
 import uberplus.entitiesDB.RentedVehicle;
 import uberplus.entitiesDB.Vehicle;
 import uberplus.utils.Preferences;
 import uberplus.utils.RentedVehicleListAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link VehiclesFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link VehiclesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class VehiclesFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private static ListView listView;
     private static RentedVehicleListAdapter adapter;
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private Preferences pref;
     private OnFragmentInteractionListener mListener;
 
     public VehiclesFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment VehiclesFragment.
-     */
     // TODO: Rename and change types and number of parameters
-    public static VehiclesFragment newInstance(String param1, String param2) {
+    public static VehiclesFragment newInstance() {
         VehiclesFragment fragment = new VehiclesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View v = inflater.inflate(R.layout.fragment_vehicles, container, false);
         listView = (ListView) v.findViewById(R.id.carsList);
-        final Preferences pref = new Preferences(getActivity());
+        pref = new Preferences(getActivity());
         final ArrayList<RentedVehicle> vehiclesList = pref.getRentedCarsCollection();
+
+        if (pref.getRentedCarsCollection() != null) {
+            adapter = new RentedVehicleListAdapter(vehiclesList, getActivity().getApplicationContext());
+            listView.setAdapter(adapter);
+        }
 
         Button addCar = (Button) v.findViewById(R.id.button3);
         addCar.setOnClickListener(new View.OnClickListener() {
@@ -146,10 +119,8 @@ public class VehiclesFragment extends Fragment {
                         } else if (hasLicensePlate) {
                             Toast.makeText(getActivity(), "License plate being used", Toast.LENGTH_SHORT).show();
                         }
-//                        listView.setAdapter(new ArrayAdapter<>(getActivity(),
-//                                android.R.layout.simple_list_item_1, vehicles));
-                        //adapter = new RentedVehicleListAdapter(vehiclesList, ((AccountActivity) getActivity()).getApplicationContext());
-                        //listView.setAdapter(adapter);
+
+                        reloadAllData();
 
                     }
                 });
@@ -178,10 +149,7 @@ public class VehiclesFragment extends Fragment {
                 builder.show();
             }
         });
-        if (pref.getRentedCarsCollection() != null) {
-            adapter = new RentedVehicleListAdapter(vehiclesList, ((AccountActivity) getActivity()).getApplicationContext());
-            listView.setAdapter(adapter);
-        }
+
         return v;
     }
 
@@ -190,6 +158,13 @@ public class VehiclesFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    private void reloadAllData() {
+        ArrayList<RentedVehicle> vehiclesList = pref.getRentedCarsCollection();
+        adapter.clear();
+        adapter.addAll(vehiclesList);
+        adapter.notifyDataSetChanged();
     }
 
     /**

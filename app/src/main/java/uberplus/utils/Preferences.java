@@ -109,6 +109,9 @@ public class Preferences {
         Type type = new TypeToken<ArrayList<RentedVehicle>>() {
         }.getType();
         ArrayList<RentedVehicle> cr = gson.fromJson(json, type);
+        if(cr == null){
+            return new ArrayList<RentedVehicle>();
+        }
         return cr;
     }
 

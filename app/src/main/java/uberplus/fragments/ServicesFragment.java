@@ -3,14 +3,13 @@ package uberplus.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -89,7 +88,7 @@ public class ServicesFragment extends Fragment {
 
         requestsList = ((AccountActivity) getActivity()).getRequestList();
         listView = (ListView) v.findViewById(R.id.servicesListView);
-        adapter = new ServiceListAdapter(requestsList, ((AccountActivity) getActivity()).getApplicationContext());
+        adapter = new ServiceListAdapter(requestsList, getActivity().getApplicationContext());
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -102,7 +101,6 @@ public class ServicesFragment extends Fragment {
                 final TextView destinationAddress = (TextView) dialogView.findViewById(R.id.endingDestinationDialogText);
                 final TextView foodName = (TextView) dialogView.findViewById(R.id.foodNameDialogText);
                 final TextView foodQuantity = (TextView) dialogView.findViewById(R.id.foodQuantityDialogText);
-                final TextView privateLabel = (TextView) dialogView.findViewById(R.id.privateDialogLabel);
                 final TextView originAddress = (TextView) dialogView.findViewById(R.id.startingDestinationDialogText);
                 final ServiceRequest request = requestsList.get(i);
 
@@ -110,21 +108,21 @@ public class ServicesFragment extends Fragment {
                 destinationAddress.setText(request.getDestinationAddress());
 
                 if (request instanceof FoodDelivery) {
-                    View foodNameLayout = (LinearLayout) dialogView.findViewById(R.id.foodNameLayout);
-                    View foodQuantityLayout = (LinearLayout) dialogView.findViewById(R.id.foodQuantityLayout);
+                    View foodNameLayout = dialogView.findViewById(R.id.foodNameLayout);
+                    View foodQuantityLayout = dialogView.findViewById(R.id.foodQuantityLayout);
                     foodNameLayout.setVisibility(view.VISIBLE);
                     foodQuantityLayout.setVisibility(view.VISIBLE);
                     String name = ((FoodDelivery) request).getFoodName();
                     foodName.setText(name);
-                    int quantity = ((int) ((FoodDelivery) request).getQuantity());
+                    int quantity = ((FoodDelivery) request).getQuantity();
                     foodQuantity.setText(String.valueOf(quantity));
                 } else {
-                    View privateLayout = (LinearLayout) dialogView.findViewById(R.id.privateLayout);
-                    View originAddressLayout = (LinearLayout) dialogView.findViewById(R.id.originAddressLayout);
+                    View privateLayout = dialogView.findViewById(R.id.privateLayout);
+                    View originAddressLayout = dialogView.findViewById(R.id.originAddressLayout);
                     originAddressLayout.setVisibility(view.VISIBLE);
                     originAddress.setText(request.getOriginAddress());
                     if (((Transportation) request).isPrivate())
-                        privateLabel.setVisibility(view.VISIBLE);
+                        privateLayout.setVisibility(view.VISIBLE);
                 }
 
                 builder.setView(dialogView);
@@ -138,6 +136,7 @@ public class ServicesFragment extends Fragment {
                         if (alert != null && alert.isShowing()) {
                             alert.dismiss();
                         }
+                        adapter.notifyDataSetChanged();
                     }
                 });
 
@@ -148,12 +147,13 @@ public class ServicesFragment extends Fragment {
                         if (alert != null && alert.isShowing()) {
                             alert.dismiss();
                         }
+                        adapter.notifyDataSetChanged();
                     }
                 });
             }
         });
 
-        Button requestServiceButton = (Button) v.findViewById(R.id.createRequestButton);
+        FloatingActionButton requestServiceButton = (FloatingActionButton) v.findViewById(R.id.createRequestButton);
         requestServiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -78,7 +78,6 @@
                 android:id="@+id/M_cars"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
                 android:layout_weight="1"
@@ -86,7 +85,6 @@
                 android:background="#375b98"
                 android:drawablePadding="16dp"
                 android:padding="40dp"
-
                 android:text="Rent a car"
                 android:textColor="#FFFFFF" />
 

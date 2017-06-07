@@ -73,15 +73,15 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_home, container, false);
+        View v = inflater.inflate(R.layout.home_menu, container, false);
         Preferences pref = new Preferences(getActivity());
         //  ControlRegister cr = pref.getControlRegister();
         //  ArrayList<User> users = pref.getUsersCollection();
 
-        TextView email = (TextView) v.findViewById(R.id.textViewEmail);
-        TextView name = (TextView) v.findViewById(R.id.textViewName);
-        TextView function = (TextView) v.findViewById(R.id.textViewFunction);
-        email.setText(pref.getEmail());
+        //TextView email = (TextView) v.findViewById(R.id.textViewEmail);
+        //TextView name = (TextView) v.findViewById(R.id.textViewName);
+        TextView function = (TextView) v.findViewById(R.id.functionTextView);
+        //email.setText(pref.getEmail());
      /*  System.out.println(users);
         if(users!=null) {
             System.out.println(users.size());
@@ -92,17 +92,18 @@ public class HomeFragment extends Fragment {
         }*/
         //name.setText(pref.getEmail());
         function.setText(pref.getType());
-        Button goToServices = (Button) v.findViewById(R.id.M_services);
-        Button goToCars = (Button) v.findViewById(R.id.M_cars);
-        Button logOut = (Button) v.findViewById(R.id.buttonLogOut);
-        logOut.setOnClickListener(new View.OnClickListener() {
+        Button servicesButton = (Button) v.findViewById(R.id.buttonServices);
+        Button rentCarButton = (Button) v.findViewById(R.id.buttonRentCar);
+        Button logOutButton = (Button) v.findViewById(R.id.buttonLogOut);
+        
+        logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 getActivity().startActivity(intent);
             }
         });
-        goToServices.setOnClickListener(new View.OnClickListener() {
+        servicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ServicesFragment fragmentS = new ServicesFragment();
@@ -112,7 +113,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        goToCars.setOnClickListener(new View.OnClickListener() {
+        rentCarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 VehiclesFragment fragmentR = new VehiclesFragment();
