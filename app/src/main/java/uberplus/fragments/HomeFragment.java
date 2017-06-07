@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import fct.unl.pt.uberplus_p.R;
 import uberplus.activities.AccountActivity;
@@ -130,9 +129,8 @@ public class HomeFragment extends Fragment {
     private int indexOf(String email, ArrayList<User> users) {
 
         int index = 0;
-        Iterator<User> it = users.iterator();
-        while (it.hasNext()) {
-            if (it.next().getEmail().equals(email)) {
+        for (User user : users) {
+            if (user.getEmail().equals(email)) {
 
                 break;
             } else {

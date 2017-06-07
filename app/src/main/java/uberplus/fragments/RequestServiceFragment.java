@@ -83,8 +83,8 @@ public class RequestServiceFragment extends Fragment {
         final Button submitRequestButton = (Button) v.findViewById(R.id.buttonSubmitServiceRequest);
         final RadioButton foodRadio = (RadioButton)v.findViewById(R.id.foodDeliveryRadio);
         final RadioButton transportRadio = (RadioButton)v.findViewById(R.id.transportDeliveryRadio);
-        final View foodLay = (View) v.findViewById(R.id.foodDeliveryLay);
-        final View transportLay = (View) v.findViewById(R.id.transportLay);
+        final View foodLay = v.findViewById(R.id.foodDeliveryLay);
+        final View transportLay = v.findViewById(R.id.transportLay);
 
         final EditText foodDestination = (EditText) v.findViewById(R.id.editTextFoodDelivery);
         final EditText foodName = (EditText) v.findViewById(R.id.editTextFoodName);

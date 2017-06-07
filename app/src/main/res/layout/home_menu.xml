@@ -8,7 +8,6 @@
         android:id="@+id/helloUserTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="Hello, user"
         android:layout_marginBottom="@dimen/marginEditText"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
@@ -17,7 +16,6 @@
         android:id="@+id/functionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_below="@id/helloUserTextView"
         android:text="Function"/>
 
@@ -58,7 +56,6 @@
             android:textColor="#e8e9e9" />
 
         <Button
-            android:id="@+id/buttonReports"
             android:layout_row="1"
             android:layout_column="0"
             android:layout_columnWeight="1"

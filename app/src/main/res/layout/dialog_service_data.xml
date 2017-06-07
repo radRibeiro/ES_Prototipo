@@ -3,166 +3,158 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/fab_margin">
+    android:padding="@dimen/fab_margin"
+    style="?android:attr/buttonBarStyle">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Service Description"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <View style="@style/Divider" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/serviceDataLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Service Description"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:layout_weight="1"
+            android:text="Status :" />
 
-        <View style="@style/Divider" />
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/statusDialogText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="1" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/statusDialogLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Status :" />
+    <LinearLayout
+        android:id="@+id/originAddressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
-            <TextView
-                android:id="@+id/statusDialogText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/originAddressLayout"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            android:layout_weight="1"
+            android:text="Origin address :" />
 
-            <TextView
-                android:id="@+id/startingDestinationDialogLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Origin address :" />
-
-            <TextView
-                android:id="@+id/startingDestinationDialogText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/startingDestinationDialogText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/endingDestinationDialogLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Destination address :" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/endingDestinationDialogText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/foodNameLayout"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            android:layout_weight="1"
+            android:text="Destination address :" />
 
-            <TextView
-                android:id="@+id/foodNameDialogLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Food Name :" />
-
-            <TextView
-                android:id="@+id/foodNameDialogText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/foodQuantityLayout"
+        <TextView
+            android:id="@+id/endingDestinationDialogText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/marginEditText"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/foodQuantityDialogLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Food Quantity :" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/foodQuantityDialogText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+    <LinearLayout
+        android:id="@+id/foodNameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/privateLayout"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            android:layout_weight="1"
+            android:text="Food Name :" />
 
-            <TextView
-                android:id="@+id/privateDialogLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Private"
-                android:textColor="@color/colorAccent" />
-
-        </LinearLayout>
-
-
-        <View style="@style/Divider" />
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/foodNameDialogText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-            <Button
-                android:id="@+id/buttonAccept"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Accept" />
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/buttonPay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Pay" />
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/foodQuantityLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginEditText"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Food Quantity :" />
+
+        <TextView
+            android:id="@+id/foodQuantityDialogText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/privateLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Private"
+            android:textColor="@color/colorAccent" />
+
+    </LinearLayout>
+
+
+    <View style="@style/Divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/buttonAccept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Accept"
+            style="?android:attr/buttonBarButtonStyle"/>
+
+        <Button
+            android:id="@+id/buttonPay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Pay"
+            style="?android:attr/buttonBarButtonStyle"/>
     </LinearLayout>
 </LinearLayout>
