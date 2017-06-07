@@ -85,6 +85,7 @@ public class ServicesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_services, container, false);
+        ((AccountActivity)getActivity()).getSupportActionBar().setTitle("Services list");
 
         requestsList = ((AccountActivity) getActivity()).getRequestList();
         listView = (ListView) v.findViewById(R.id.servicesListView);
@@ -95,7 +96,7 @@ public class ServicesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_actions, null);
+                View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_service_data, null);
 
                 final TextView status = (TextView) dialogView.findViewById(R.id.statusDialogText);
                 final TextView destinationAddress = (TextView) dialogView.findViewById(R.id.endingDestinationDialogText);

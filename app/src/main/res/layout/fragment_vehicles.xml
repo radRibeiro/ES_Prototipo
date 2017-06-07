@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,50 +6,19 @@
     android:padding="@dimen/fab_margin"
     tools:context="uberplus.fragments.VehiclesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
-
-    <LinearLayout
+    <ListView
+        android:id="@+id/carsList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:layout_height="match_parent" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.47"
-            android:gravity="center"
-            android:text="Available vehicles for renting"
-            android:textSize="24sp" />
 
-        <ListView
-            android:id="@+id/carsList"
-            android:layout_width="match_parent"
-            android:layout_height="380dp"
-            android:layout_weight="0.47" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/registerVehicleButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/plus" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Register Vehicle for renting" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:orientation="vertical"></LinearLayout>
-
-    </LinearLayout>
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

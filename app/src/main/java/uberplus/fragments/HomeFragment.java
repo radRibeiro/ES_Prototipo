@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import fct.unl.pt.uberplus_p.R;
+import uberplus.activities.AccountActivity;
 import uberplus.activities.MainActivity;
 import uberplus.entitiesDB.User;
 import uberplus.utils.Preferences;
@@ -75,6 +76,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.home_menu, container, false);
         Preferences pref = new Preferences(getActivity());
+        ((AccountActivity)getActivity()).getSupportActionBar().setTitle("Home");
         //  ControlRegister cr = pref.getControlRegister();
         //  ArrayList<User> users = pref.getUsersCollection();
 

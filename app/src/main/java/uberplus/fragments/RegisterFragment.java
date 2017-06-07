@@ -15,12 +15,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Set;
 
-import uberplus.entitiesDB.Driver;
+import fct.unl.pt.uberplus_p.R;
+import uberplus.activities.MainActivity;
+import uberplus.control.ControlRegister;
 import uberplus.entitiesDB.PersonalData;
 import uberplus.entitiesDB.User;
 import uberplus.utils.Preferences;
-import uberplus.control.ControlRegister;
-import fct.unl.pt.uberplus_p.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,7 +76,7 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("User registration");
         final View v =  inflater.inflate(R.layout.fragment_register, container, false);
         final Preferences pref = new Preferences(getActivity());
         cr = new ControlRegister();

@@ -3,13 +3,13 @@ package uberplus.fragments;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import fct.unl.pt.uberplus_p.R;
+import uberplus.activities.AccountActivity;
 import uberplus.entitiesDB.RentedVehicle;
 import uberplus.entitiesDB.Vehicle;
 import uberplus.utils.Preferences;
@@ -50,6 +51,8 @@ public class VehiclesFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_vehicles, container, false);
+        ((AccountActivity)getActivity()).getSupportActionBar().setTitle("Rental vehicles list");
+
         listView = (ListView) v.findViewById(R.id.carsList);
         pref = new Preferences(getActivity());
         final ArrayList<RentedVehicle> vehiclesList = pref.getRentedCarsCollection();
@@ -59,7 +62,7 @@ public class VehiclesFragment extends Fragment {
             listView.setAdapter(adapter);
         }
 
-        Button addCar = (Button) v.findViewById(R.id.button3);
+        FloatingActionButton addCar = (FloatingActionButton) v.findViewById(R.id.registerVehicleButton);
         addCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
